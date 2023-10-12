@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[top=40mm,bottom=40mm,left=30mm,right=30mm]{geometry}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{stackengine}
+\usepackage{cleveref}
+% \usepackage{siunitx}
+
+% We often use underlines here
+\newcommand\barbelow[1]{\stackunder[1.2pt]{$#1$}{\rule{1.5ex}{.1ex}}}
+\newcommand{\su}[1]{\barbelow{#1}}
+\newcommand{\du}[1]{\barbelow{\barbelow{#1}}}
+
+\newcommand{\pp}{\partial}
+
+\newcommand{\YY}[3][j]{E_{#2#1}E_{#3#1}^*}
+
+\def\onedot{$\mathsurround0pt\ldotp$}
+\def\cddot{\mathbin{
+    \vcenter{\baselineskip1ex \vspace{-0.1ex}\hbox{\onedot}\hbox{\onedot}}
+}}
+
+\begin{document}
+This is to keep track of deriving the form of $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ only, using
+\section{Initial setup}
+\begin{align}
+    F & = \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
+    f_\text{bulk} & = \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
+    f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \\
+    f_\text{curv} & = \ldots \\
+\end{align}
+where
+\begin{align}
+    \du{\Pi} = \su{N} \su{N} && \text{and} && \du{T} = \du{\delta} - \du{\Pi}
+\end{align}
+are the projection operators. We need to express these using $\du{E}$ as well, there are 2 options which I quote here
+\begin{align}
+    \du{\Pi} & = \frac{d-1}{d-2}\qty(\frac{\du{E} \cdot \du{E}^*}{\du{E} \cddot \du{E}^*} - \frac{\du{\delta}}{d(d-1)}) \qq{or} \label{eq:piex1}\\
+    \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} - \frac{\du{\delta}}{d} \qq{which has a complex square root}
+\end{align}
+$\du{T}$ just being calculated from $\du{\Pi}$.
+
+\section{$\pdv{F_\text{comp}}{E_{ij}^*}$ using \cref{eq:piex1} for $\du{\Pi}$ and the Euler-Lagrange derivative}
+As $\fdv{F_\text{bulk}}{E_{ij}^*}$ has been calculated before and it is the easier one, I move straight to the compression contribution. There the function in the integral only depends on the first derivatives of $\du{E}$ so we can use the usual Euler-Lagrange expression for calculating the functional.
+\begin{align}
+    \fdv{\phi}\int f(\phi, \grad \phi) \dd{V} &= \pdv{f}{\phi} - \grad \cdot \pdv{f}{(\grad \phi)} \qq{or for us} \\
+    \fdv{E_{ij}^*}\int f_\text{comp}(\du{\Pi}(\du{E}, \du{E}^*), \grad \du{E}, \grad \du{E}^*) \dd{V} &= \pdv{f_\text{comp}}{E_{ij}^*} - \grad \cdot \pdv{f_\text{comp}}{(\grad E_{ij}^*)} \label{eq:eulag}
+\end{align}
+Here I use \cref{eq:piex1} as the expression for $\du{\Pi}$ furhter using $p = \frac{d-1}{d-2}$ and $q = \frac{1}{d(d-1)}$ as shorthands.
+I repeat the equations here for convenience
+\begin{equation}
+    \Pi_{kl} & = p\qty(\frac{\YY{k}{l}}{\YY{i}{i}} - q \delta_{kl}) \qq{and} f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
+\end{equation}
+
+\subsection{The first term}
+Noticing that the only dependence that $f_\text{comp}$ only depends on $\du{E}$ through $\du{\Pi}$ lets first get
+\begin{align}
+    \pdv{\Pi_{kl}}{E_{ij}^*} &= p \qty(\frac{1}{\YY{i}{i}})
+\end{align}
+then we get
+\begin{align}
+    \pdv{f_\text{comp}}{E_{ij}^*} &= b_1^\parallel \pdv{\Pi_{kl}}{E_{ij}^*}E_{ab,k}E_{ab,l}^* - b_1^\perp \pdv{\Pi_{kl}}{E_{ij}^*}E_{ab,k}E_{ab,l}^* \\
+    &= (b_1^\parallel - b_1^\perp) \pdv{\Pi_{kl}}{E_{ij}^*}E_{ab,k}E_{ab,l}^*
+\end{align}
+
+\vdots
+
+\subsection{The second term}
+Let's start working on the second term of \cref{eq:eulag}, firstly as the projection operators only depend on the $\du{E}$ and not on any of its derivatives we have
+\begin{align}
+    \pdv{f_\text{comp}}{(E_{ab,c}^*)} &= b_1^\parallel \Pi_{kl} E_{ij,k}\delta_{ia}\delta_{jb}\delta_{lc} + b_1^\perp T_{kl} E_{ij,k}\delta_{ia}\delta_{jb}\delta_{lc} \\
+    &= b_1^\parallel \Pi_{kc} E_{ab,k} + b_1^\perp \qty(\delta_{kc} - \Pi_{kc}) E_{ab,k}
+\end{align}
+As the next step is to take a divergence of the above, lets first calculate
+\begin{align}
+    \pp_\alpha \Pi_{\beta\gamma} &= p \mathbin{\pp_\alpha} \frac{E_{\beta j}E_{\gamma j}^*}{E_{ij}E_{ij}^*} \\
+    &= p \qty(\frac{E_{\beta j, \alpha}E_{\gamma j}^*}{E_{ij}E_{ij}^*} + \frac{E_{\beta j}E_{\gamma j, \alpha}^*}{E_{ij}E_{ij}^*} - \frac{E_{\beta j}E_{\gamma j}^*}{(E_{ij}E_{ij}^*)^2}\qty(E_{ij,\alpha}E_{ij}^* + E_{ij}E_{ij,\alpha}^*) ) && \text{or} \\
+    \pp_\alpha \Pi_{\beta\gamma} &= p \qty(\frac{Y_{\beta\gamma,\alpha}}{Y_{ii}} - \frac{Y_{\beta\gamma} Y_{ii,\alpha}}{Y_{ii}^2}) \qq{using} Y_{ij} = E_{ik}E_{jk}^*
+\end{align}
+which leads to
+\begin{align}
+    \pp_c \pdv{f_\text{comp}}{(E_{ab,c}^*)} =\enspace& b_1^\parallel \Pi_{kc,c} E_{ab,k} - b_1^\perp \Pi_{kc,c} E_{ab,k} \enspace+ \\
+    & b_1^\parallel \Pi_{kc} E_{ab,kc} + b_1^\perp \qty(\delta_{kc} - \Pi_{kc}) E_{ab,kc} \\
+    =\enspace& \qty(b_1^\parallel - b_1^\perp) \Pi_{kc,c} E_{ab,k} \enspace+ \\
+    & b_1^\perp E_{ab,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ab,kc}
+\end{align}
+Turns out we probably only need $\Pi_{\alpha\beta,\beta}$
+
+\vdots
+
+\end{document}
