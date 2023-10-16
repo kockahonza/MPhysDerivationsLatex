@@ -1,12 +1,14 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
-\usepackage[top=40mm,bottom=40mm,left=30mm,right=30mm]{geometry}
+\usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
 \usepackage{parskip}
 \usepackage{amsmath}
 \usepackage{physics}
 \usepackage{stackengine}
 \usepackage{cleveref}
 % \usepackage{siunitx}
+
+\allowdisplaybreaks
 
 % We often use underlines here
 \newcommand\barbelow[1]{\stackunder[1.2pt]{$#1$}{\rule{1.5ex}{.1ex}}}
@@ -23,7 +25,11 @@
 }}
 
 \begin{document}
-This is to keep track of deriving the form of $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ only, using
+\begin{center}
+    \LARGE
+    \textbf{Derivation of $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ and its derivatives}
+\end{center}
+\vspace{1em}
 \section{Initial setup}
 \begin{align}
     F & = \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
@@ -96,16 +102,33 @@ which leads to
 \end{align}
 bracketing to separate the first and second order derivatives. Turns out we only need
 \begin{equation}
-    \pp_\beta \Pi_{\alpha\beta} &= p \qty(\frac{Y_{\alpha\beta,\beta}}{Y_{ii}} - \frac{Y_{\alpha\beta} Y_{ii,\beta}}{Y_{ii}^2})
+    \Pi_{\alpha\beta,\beta} = \pp_\beta \Pi_{\alpha\beta} = p \qty(\frac{Y_{\alpha\beta,\beta}}{Y_{ii}} - \frac{Y_{\alpha\beta} Y_{ii,\beta}}{Y_{ii}^2})
 \end{equation}
 leading to
 \begin{align}
-    \pp_c \pdv{f_\text{comp}}{(E_{ab,c}^*)} &= p\qty(b_1^\parallel - b_1^\perp) \qty(\frac{Y_{kc,c}}{Y_{ii}} - \frac{Y_{kc} Y_{ii,c}}{Y_{ii}^2}) E_{ab,k} + \qty(b_1^\perp E_{ab,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ab,kc})
+    \pp_c \pdv{f_\text{comp}}{(E_{ab,c}^*)} &= p\qty(b_1^\parallel - b_1^\perp) \qty(\frac{Y_{kc,c}}{Y_{ii}} - \frac{Y_{kc} Y_{ii,c}}{Y_{ii}^2}) E_{ab,k} + \qty(b_1^\perp E_{ab,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ab,kc}) \\
+    &= \frac{p\qty(b_1^\parallel - b_1^\perp)}{Y_{ii}^2} \qty(Y_{ii}Y_{kc,c} - Y_{kc} Y_{ii,c}) E_{ab,k} + \qty(b_1^\perp E_{ab,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ab,kc})
 \end{align}
 
 \subsection{Combining the terms}
 \begin{align}
-    \fdv{f_\text{comp}}{E_{ij}^*} =&\enspace
+    \fdv{f_\text{comp}}{E_{ij}^*} =&\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2} (Y_{aa}E_{kj}E_{\alpha\beta,k}E_{\alpha\beta,i}^* - Y_{kl}E_{ij} E_{\alpha\beta,k}E_{\alpha\beta,l}^*) \\
+    &- \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2} (Y_{aa}Y_{kc,c} - Y_{kc} Y_{aa,c}) E_{ij,k} - (b_1^\perp E_{ij,cc} + (b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc}) \\
+    =&\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}\Bigl(Y_{aa}E_{kj}E_{\alpha\beta,k}E_{\alpha\beta,i}^* - Y_{kl}E_{ij} E_{\alpha\beta,k}E_{\alpha\beta,l}^* + (Y_{kc} Y_{aa,c} - Y_{aa}Y_{kc,c})E_{ij,k}\Bigr) \\
+    &- S_{ij} \qq{with} S_{ij} = (b_1^\perp E_{ij,cc} + (b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc}) \qq{containing the second order terms} \\
+    =&\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}\Bigl(Y_{aa}(E_{kj}E_{\alpha\beta,k}E_{\alpha\beta,i}^* - Y_{kc,c}E_{ij,k}) + Y_{kl}(Y_{aa,l}E_{ij,k} - E_{ij} E_{\alpha\beta,k}E_{\alpha\beta,l}^*)\Bigr) \\
+    &- S_{ij} \\
+    =&\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}\Bigl(Y_{aa}(E_{kj}E_{\alpha\beta,k}E_{\alpha\beta,i}^* - (E_{kd,c}E_{cd}^* + E_{kd}E_{cd,c}^*)E_{ij,k}) \\*
+    &\phantom{\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}}+ Y_{kl}((E_{ad,l}E_{ad}^* + E_{ad}E_{ad,l}^*)E_{ij,k} - E_{ij} E_{\alpha\beta,k}E_{\alpha\beta,l}^*)\Bigr) \\*
+    &- S_{ij} \\
+    =&\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}\Bigl(Y_{aa}(E_{kj}E_{\alpha\beta,k}E_{\alpha\beta,i}^* - E_{cd}^*E_{ij,k}E_{kd,c} - E_{kd}E_{ij,k}E_{cd,c}^*) \\*
+    &\phantom{\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}}+ Y_{kl}(E_{ad}^*E_{ij,k}E_{ad,l} + E_{ad}E_{ij,k}E_{ad,l}^* - E_{ij} E_{\alpha\beta,k}E_{\alpha\beta,l}^*)\Bigr) \\*
+    &- S_{ij} \\
+    \fdv{f_\text{comp}}{E_{ij}^*} =&\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}\Bigl(\YY[f]{a}{a}(E_{kj}E_{\alpha\beta,k}E_{\alpha\beta,i}^* - E_{cd}^*E_{ij,k}E_{kd,c} - E_{kd}E_{ij,k}E_{cd,c}^*) \\*
+    &\phantom{\enspace \frac{p(b_1^\parallel - b_1^\perp)}{Y_{aa}^2}}+ \YY[f]{k}{l}(E_{ad}^*E_{ij,k}E_{ad,l} + E_{ad}E_{ij,k}E_{ad,l}^* - E_{ij} E_{\alpha\beta,k}E_{\alpha\beta,l}^*)\Bigr) \\*
+    &- (b_1^\perp E_{ij,cc} + (b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc}) \\
 \end{align}
+I don't see any nicer or more intuitive way to write this as of now, also I do not see it being symmetric in exchanging $i$ and $j$ as I thought it would.
+For now I am leaving this as it is, $\du{\Pi}$ and $Y_{aa}$ can readily be expressed in terms of $\du{E}$ for computation.
 
 \end{document}
