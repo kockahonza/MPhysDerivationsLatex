@@ -34,8 +34,8 @@
 \begin{align}
     F & = \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
     f_\text{bulk} & = \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
-    f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \\
-    f_\text{curv} & = \ldots \\
+    f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \qq{maybe try adding} b_1^d E_{ij,j}E_{ik,k}^* \qq{later too} \\
+    f_\text{curv} & = \ldots \qq{for later} \ldots \\
 \end{align}
 where
 \begin{align}
@@ -171,6 +171,13 @@ giving
 \begin{align}
     \fdv{F_\text{comp}}{E_{ij}^*} &= -s\qty(b_1^\parallel - b_1^\perp) \qty(\sqrt{E_{ab}E_{ab}}E_{kc,c} + \frac{E_{ab,c}E_{ab} }{\sqrt{E_{ab}E_{ab}}}E_{kc}) E_{ij,k} - \qty(b_1^\perp E_{ij,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc})
 \end{align}
+
+\section{The divergence term of $f_\text{comp}$}
+This turned out a lot simpler.
+I do this using the Euler-Lagrange functional derivative (\cref{eq:eulag}) again, though here I was a little unsure when taking the grad of a Kronecker delta, so I also tried acting it directly on the derivative and using $\fdv{E_{ab}^*(\su{r})}{E_{ij}^*^(\su{r}')} = \delta_{ai}\delta_{bj}\delta(\su{r}-\su{r}')$ and it gave the same, so I don't present it.
+\begin{equation}
+    \fdv{E_{ij}^*}\enspace b_1^d E_{ab,b}E_{ac,c}^* = b_1^d \pp_d E_{ab,b} \delta_{ia}\delta_{jc}\delta_{dc} = b_1^d E_{ib,bj}
+\end{equation}
 
 
 
