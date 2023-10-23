@@ -27,7 +27,7 @@
 \begin{document}
 \begin{center}
     \LARGE
-    \textbf{Derivation of $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ and its derivatives}
+    \textbf{Derivation of $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ and its derivatives -- Old version using $\fdv{E_{ij}}{E_{ab}} = \delta_{ai}\delta_{bj}$, most probably wrong!}
 \end{center}
 \vspace{1em}
 \section{Initial setup}
@@ -148,11 +148,10 @@ For now I am leaving this as it is, $\du{\Pi}$ and $Y_{aa}$ can readily be expre
 \pagebreak
 \section{$\fdv{F_\text{comp}}{E_{ij}^*}$ using \cref{eq:piex2} for $\du{\Pi}$ and the Euler-Lagrange derivative}
 We can still use the Euler-Lagrange version of the functional derivative as before, the only additional thing to consider is how to deal with the root -- I will essentially ignore any problems with branch cuts etc. until the end, and just treat it like a real root until then.
-Also, the results here are surprisingly simple -- making me question that treating $E_{ij}$ and $E_{ij}^*$ as completely independent is correct -- I take that from the properties of Wirtinger derivatives.
 
 So lets use 
 \begin{equation}
-    \Pi_{kl} = s \sqrt{E_{ab}E_{ab}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and} f_\text{comp} = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
+    \Pi_{kl} = s \frac{E_{kl} }{\sqrt{E_{ab}E_{ab}}}- \frac{\delta_{kl}}{d} \qq{and} f_\text{comp} = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
 \end{equation}
 with $s = \sqrt{\frac{d-1}{d}}$
 
@@ -163,13 +162,12 @@ So lets get the second term, for that we can reuse \cref{eq:secondtermfirst} to 
 \end{equation}
 so we need
 \begin{align}
-    \pp_c \Pi_{kc} &= s\qty(\sqrt{E_{ab}E_{ab}}E_{kc,c} + E_{kc}\pp_c \sqrt{E_{ab}E_{ab}}) \\
-    &= s\qty(\sqrt{E_{ab}E_{ab}}E_{kc,c} + \frac{E_{kc} 2 E_{ab,c}E_{ab}}{2 \sqrt{E_{ab}E_{ab}}}) \\
-    &= s\qty(\sqrt{E_{ab}E_{ab}}E_{kc,c} + \frac{E_{ab,c}E_{ab} }{\sqrt{E_{ab}E_{ab}}}E_{kc})
+    \pp_c \Pi_{kc} &= s\qty(\frac{E_{kc,c}}{\sqrt{\YY[b]{a}{a}}} - \frac{E_{kc}(E_{ab,c}E_{ab}^* + E_{ab}E_{ab,c}^*)}{2(\YY[b]{a}{a})^\frac{3}{2}}) \\
+    &= \frac{s}{\sqrt{\YY[b]{a}{a}}} \qty(E_{kc,c} - \frac{E_{kc}(E_{ab,c}E_{ab}^* + E_{ab}E_{ab,c}^*)}{2\YY[b]{a}{a}}) \\
 \end{align}
 giving
 \begin{align}
-    \fdv{F_\text{comp}}{E_{ij}^*} &= -s\qty(b_1^\parallel - b_1^\perp) \qty(\sqrt{E_{ab}E_{ab}}E_{kc,c} + \frac{E_{ab,c}E_{ab} }{\sqrt{E_{ab}E_{ab}}}E_{kc}) E_{ij,k} - \qty(b_1^\perp E_{ij,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc})
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -\frac{s}{\sqrt{\YY[b]{a}{a}}}\qty(b_1^\parallel - b_1^\perp) \qty(E_{kc,c} - \frac{E_{kc}(E_{ab,c}E_{ab}^* + E_{ab}E_{ab,c}^*)}{2\YY[b]{a}{a}}) E_{ij,k} - \qty(b_1^\perp E_{ij,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc})
 \end{align}
 
 \section{The divergence term of $f_\text{comp}$}
