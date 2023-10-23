@@ -57,7 +57,7 @@ As $\fdv{F_\text{bulk}}{E_{ij}^*}$ has been calculated before and it is the easi
 Here I use \cref{eq:piex1} as the expression for $\du{\Pi}$ furhter using $p = \frac{d-1}{d-2}$ and $q = \frac{1}{d(d-1)}$ as shorthands.
 I repeat the equations here for convenience
 \begin{equation}
-    \Pi_{kl} & = p\qty(\frac{\YY{k}{l}}{\YY{i}{i}} - q \delta_{kl}) \qq{and} f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
+    \Pi_{kl} = p\qty(\frac{\YY{k}{l}}{\YY{i}{i}} - q \delta_{kl}) \qq{and} f_\text{comp} = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
 \end{equation}
 
 \subsection{The first term}
@@ -152,7 +152,7 @@ Also, the results here are surprisingly simple -- making me question that treati
 
 So lets use 
 \begin{equation}
-    \Pi_{kl} & = s \sqrt{E_{ab}E_{ab}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and} f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
+    \Pi_{kl} = s \sqrt{E_{ab}E_{ab}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and} f_\text{comp} = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
 \end{equation}
 with $s = \sqrt{\frac{d-1}{d}}$
 
@@ -174,7 +174,7 @@ giving
 
 \section{The divergence term of $f_\text{comp}$}
 This turned out a lot simpler.
-I do this using the Euler-Lagrange functional derivative (\cref{eq:eulag}) again, though here I was a little unsure when taking the grad of a Kronecker delta, so I also tried acting it directly on the derivative and using $\fdv{E_{ab}^*(\su{r})}{E_{ij}^*^(\su{r}')} = \delta_{ai}\delta_{bj}\delta(\su{r}-\su{r}')$ and it gave the same, so I don't present it.
+I do this using the Euler-Lagrange functional derivative (\cref{eq:eulag}) again, though here I was a little unsure when taking the grad of a Kronecker delta, so I also tried acting it directly on the derivative and using $\fdv{E_{ab}^*(\su{r})}{E_{ij}^*(\su{r}')} = \delta_{ai}\delta_{bj}\delta(\su{r}-\su{r}')$ and it gave the same, so I don't present it.
 \begin{equation}
     \fdv{E_{ij}^*}\enspace b_1^d E_{ab,b}E_{ac,c}^* = b_1^d \pp_d E_{ab,b} \delta_{ia}\delta_{jc}\delta_{dc} = b_1^d E_{ib,bj}
 \end{equation}
