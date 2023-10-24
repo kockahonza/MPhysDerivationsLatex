@@ -1,28 +1,6 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt]{article}
 \usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
-\usepackage{parskip}
-\usepackage{amsmath}
-\usepackage{physics}
-\usepackage{stackengine}
-\usepackage{cleveref}
-\usepackage{siunitx}
-
-\allowdisplaybreaks
-
-% We often use underlines here
-\newcommand\barbelow[1]{\stackunder[1.2pt]{$#1$}{\rule{1.5ex}{.1ex}}}
-\newcommand{\su}[1]{\barbelow{#1}}
-\newcommand{\du}[1]{\barbelow{\barbelow{#1}}}
-
-\newcommand{\pp}{\partial}
-
-\newcommand{\YY}[3][j]{E_{#2#1}E_{#3#1}^*}
-
-\def\onedot{$\mathsurround0pt\ldotp$}
-\def\cddot{\mathbin{
-    \vcenter{\baselineskip1ex \vspace{-0.1ex}\hbox{\onedot}\hbox{\onedot}}
-}}
+\input{../shared_preamble.tex}
 
 \begin{document}
 \begin{center}
@@ -35,7 +13,7 @@
     F & = \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
     f_\text{bulk} & = \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
     f_\text{comp} & = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \qq{maybe try adding} b_1^d E_{ij,j}E_{ik,k}^* \qq{later too} \\
-    f_\text{curv} & = \ldots \qq{for later} \ldots \\
+    f_\text{curv} & = \quad \ldots \qq{for later} \ldots \\
 \end{align}
 where
 \begin{align}
