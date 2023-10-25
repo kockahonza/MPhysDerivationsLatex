@@ -9,6 +9,7 @@
 \end{center}
 \vspace{1em}
 \section{Initial setup}
+\subsection{Free energies and projection operators}
 \begin{align}
     F & = \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
     f_\text{bulk} & = \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
@@ -25,5 +26,40 @@ are the projection operators. We need to express these using $\du{E}$ as well, t
     \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} - \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
 \end{align}
 $\du{T}$ just being calculated from $\du{\Pi}$.
+\subsection{Functional derivatives and independent variables}
+So in version 1 of this derivation I treated all $E_{ij}$ and $E_{ij}^*$ as independent as per Wirtinger derivatives and optimization using Lagrange multipliers to satisfy constraints (though using the form of \EE\ to get an expression for \PP\ first).
+
+Here, instead the aim is to satisfy all the symmetries throughout, only using the Lagrange multiplier for correcting numerical errors.
+The core of the problem is to figure out how the constraints influence $\pdv{E_{ij}}{E_{ab}}$ and $\pdv{E_{ij,k}}{E_{ab,c}}$.
+
+The symmetries include \EE\ being symmetric for sure, and then it gets a little complicated.
+Requiring normality and the right (uniaxial?) eigenvalues is enough to fully imply our desired form, however it somewhat seems to me that it might be easier to just require that form to start.
+
+\textbff{In any case, this derivation accounts for symmetry of \EE\ only and so uses $\pdv{E_{ij}}{E_{ab}} = \delta_{ia}\delta_{jb} + \delta_{ib}\delta_{ja}$ and equivalent for the gradients ($\pdv{E_{ij,k}}{E_{ab,c}} = (\delta_{ia}\delta_{jb} + \delta_{ib}\delta_{ja})\delta_{ck}$) -- let's see if it leads to anything useful}
+
+\section{Using \cref{eq:piex2}}
+To simplify use $s=\sqrt{\frac{d-1}{d}}$ to get
+\begin{equation}
+    \Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and recall} f_\text{comp} = (b_1^\parallel - b_1^\perp) \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp E_{ij,k}E_{ij,k}^*
+\end{equation}
+So to get $\fdv{F_\text{comp}}{E_{ij}^*}$, the first term in the Euler-Lagrange equations will be 0 again as only gradients of \EE\ appear directly in the form of $f_\text{comp}$ and \PP\ only has non-conjugated elements of \EE\ appear.
+Thus
+\begin{align}
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -\pp_k \pdv{f_\text{comp}}{E_{ij,k}} = -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{cd} E_{ab,c} (\ddelta{i}{j}{a}{b})\delta_{kd} + b_1^\perp E_{ab,c}(\ddelta{i}{j}{a}{b})\delta_{kc}) \\
+    &= -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} (E_{ij,c} + E_{ji,c}) + (E_{ij,k} + b_1^\perp E_{ji,k})) \\
+    &= -2\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,c} + b_1^\perp E_{ij,k}) \\
+    &= -2\qty((b_1^\parallel - b_1^\perp) \Pi_{ck,k} E_{ij,c} + (b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,ck} + b_1^\perp E_{ij,kk})
+\end{align}
+So we need
+\begin{align}
+    \Pi_{ck,k} &= \pp_k \qty( s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck} - \frac{\delta_{ck}}{d}) = s \pp_k \qty( \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck}) \\
+    &= s \qty(\qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck,k} - \frac{1}{2}\qty(E_{ab}E_{ab})^{-\frac{3}{2}}E_{ck}2E_{ab}E_{ab,k}) \\
+    &= s \qty(\qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck,k} - \qty(E_{ab}E_{ab})^{-\frac{3}{2}}E_{ck}E_{ab}E_{ab,k}) \\
+    &= \frac{s}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck})
+\end{align}
+so together we get
+\begin{align}
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -2\qty(\frac{s(b_1^\parallel - b_1^\perp)}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck}) E_{ij,c} + (b_1^\parallel - b_1^\perp) E_{ij,ck} + b_1^\perp E_{ij,kk})
+\end{align}
 
 \end{document}
