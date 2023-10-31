@@ -5,10 +5,38 @@
 \begin{document}
 \begin{center}
     \LARGE
-    \textbf{Derivation of $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ and its derivatives -- New version using $\fdv{E_{ij}}{E_{ab}} = \delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi}$, assuming normality doesn't enter}
+    \textbf{Derivation of symmetrized $\fdv{F}{E_{ij}^*}$ in terms of $E_{ij}$ and its derivatives}
 \end{center}
 \vspace{1em}
 \section{Initial setup}
+\subsection{Functional derivatives and independent variables}
+Here I assume all the components of \EE\ are independent, except symmetry, and that \EE\ and $\du{E}^*$ are independent as usual with Wirtinger derivatives.
+The reason for this is essentially as symmetry is easy to include, unlike the others which will be enforced for the dynamics using Lagrange multipliers, at least for now.
+
+To be entirely clear these assumptions can be summarized as $\pdv{E_{ij}}{E_{ab}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})$ and $\pdv{E_{ij,k}}{E_{ab,c}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})\delta_{kc}$ (with $\kappa$ being there as I'm currently unsure about a factor of 2).
+Let me also note that I strongly suspect this will yield exactly twice the result as any $\fdv{F}{E_{ij}^*}$ using $\pdv{E_{ij}}{E_{ab}}=\delta_{ai}\delta_{bj}$ etc. that happens to be symmetric.
+
+My doubts as to do with a possible $\kappa$ is that when $i\neq j$ we expect a contribution of 1 for $a=i\qq{and}b=j$ and another contribution of 1 for $a$ and $b$ switched, however if $i=j$ there should only be 1 contribution of 1, this is visualized by \cref{tab:devtable}.
+For now however just proceed and hope it isn't a problem.
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{ c|c c c c c c c c c } 
+               & 11 & 22 & 33 & 12 & 21 & 13 & 31 & 23 & 32 \\
+            \hline
+            11 & 1  &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 \\
+            22 & 0  &  1 &  0 &  0 &  0 &  0 &  0 &  0 &  0 \\
+            33 & 0  &  0 &  1 &  0 &  0 &  0 &  0 &  0 &  0 \\
+            12 & 0  &  0 &  0 &  1 &  1 &  0 &  0 &  0 &  0 \\
+            21 & 0  &  0 &  0 &  1 &  1 &  0 &  0 &  0 &  0 \\
+            13 & 0  &  0 &  0 &  0 &  0 &  1 &  1 &  0 &  0 \\
+            31 & 0  &  0 &  0 &  0 &  0 &  1 &  1 &  0 &  0 \\
+            23 & 0  &  0 &  0 &  0 &  0 &  0 &  0 &  1 &  1 \\
+            32 & 0  &  0 &  0 &  0 &  0 &  0 &  0 &  1 &  1
+        \end{tabular}
+    \end{center}
+    \caption{The results of $\pdv{E_{ij}}{E_{ab}}$, rows and columns correspond to the $ij$ and $ab$ tuples and the table values to the partial derivative, clearly there is a difference between the $i=j$ and $i\neq j$ terms.}\label{tab:devtable}
+\end{table}
+
 \subsection{Free energies and projection operators}
 \begin{align}
     F & = \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
@@ -26,18 +54,25 @@ are the projection operators. We need to express these using $\du{E}$ as well, t
     \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} - \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
 \end{align}
 $\du{T}$ just being calculated from $\du{\Pi}$.
-\subsection{Functional derivatives and independent variables}
-So in version 1 of this derivation I treated all $E_{ij}$ and $E_{ij}^*$ as independent as per Wirtinger derivatives and optimization using Lagrange multipliers to satisfy constraints (though using the form of \EE\ to get an expression for \PP\ first).
 
-Here, instead the aim is to satisfy all the symmetries throughout, only using the Lagrange multiplier for correcting numerical errors.
-The core of the problem is to figure out how the constraints influence $\pdv{E_{ij}}{E_{ab}}$ and $\pdv{E_{ij,k}}{E_{ab,c}}$.
+\section{$F_\text{bulk}$}
+\subsection{Using $\kappa$}
+\begin{align}
+    \fdv{F_\text{bulk}}{E_{ij}^*} &= \frac{A\kappa}{2}(E_{ij} + E_{ji}) + \frac{B\kappa}{4} 2(E_{ab}E_{ab}^*)(E_{ij}+E_{ji}) \\
+    &= \kappa(A + B E_{ab}E_{ab}^*) E_{ij} \qq{using symmetry of \EE}
+\end{align}
 
-The symmetries include \EE\ being symmetric for sure, and then it gets a little complicated.
-Requiring normality and the right (uniaxial?) eigenvalues is enough to fully imply our desired form, however it somewhat seems to me that it might be easier to just require that form to start.
-
-\textbff{In any case, this derivation accounts for symmetry of \EE\ only and so uses $\pdv{E_{ij}}{E_{ab}} = \delta_{ia}\delta_{jb} + \delta_{ib}\delta_{ja}$ and equivalent for the gradients ($\pdv{E_{ij,k}}{E_{ab,c}} = (\delta_{ia}\delta_{jb} + \delta_{ib}\delta_{ja})\delta_{ck}$) -- let's see if it leads to anything useful}
-
-\section{Using \cref{eq:piex2}}
+\subsection{Treating the $i=j$ and $i\neq j$ separately, as according to \cref{tab:devtable}}
+With \textbff{no sum on $i$}:
+\begin{align}
+    \fdv{F_\text{bulk}}{E_{ii}^*} &= \frac{A}{2}E_{ii} + \frac{B}{4} 2(E_{ab}E_{ab}^*)E_{ii} \\
+    &= (A + B E_{ab}E_{ab}^*)\frac{E_{ii}}{2}
+\end{align}
+and clearly
+\begin{align}
+    \fdv{F_\text{bulk}}{E_{ij}^*} &= (A + B E_{ab}E_{ab}^*) E_{ij}
+\end{align}
+\section{$F_\text{comp}$ using \cref{eq:piex2}}
 To simplify use $s=\sqrt{\frac{d-1}{d}}$ to get
 \begin{equation}
     \Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and recall} f_\text{comp} = (b_1^\parallel - b_1^\perp) \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp E_{ij,k}E_{ij,k}^*
