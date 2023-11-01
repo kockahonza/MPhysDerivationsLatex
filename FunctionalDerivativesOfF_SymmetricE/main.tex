@@ -13,11 +13,18 @@
 Here I assume all the components of \EE\ are independent, except symmetry, and that \EE\ and $\du{E}^*$ are independent as usual with Wirtinger derivatives.
 The reason for this is essentially as symmetry is easy to include, unlike the others which will be enforced for the dynamics using Lagrange multipliers, at least for now.
 
-To be entirely clear these assumptions can be summarized as $\pdv{E_{ij}}{E_{ab}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})$ and $\pdv{E_{ij,k}}{E_{ab,c}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})\delta_{kc}$ (with $\kappa$ being there as I'm currently unsure about a factor of 2).
-Let me also note that I strongly suspect this will yield exactly twice the result as any $\fdv{F}{E_{ij}^*}$ using $\pdv{E_{ij}}{E_{ab}}=\delta_{ai}\delta_{bj}$ etc. that happens to be symmetric.
+% Let me also note that I strongly suspect this will yield exactly twice the result as any $\fdv{F}{E_{ij}^*}$ using $\pdv{E_{ij}}{E_{ab}}=\delta_{ai}\delta_{bj}$ etc. that happens to be symmetric.
+This can be achieved by a suitable choice of $\pdv{E_{ij}}{E_{ab}}$ (and respectively for gradients), in the previous derivation I used $\delta_{ia}\delta_{jb}$.
+Here something of the form $\pdv{E_{ij}}{E_{ab}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})$ seems like a logical choice, with $\kappa$ being there due to the following problem.
 
-My doubts as to do with a possible $\kappa$ is that when $i\neq j$ we expect a contribution of 1 for $a=i\qq{and}b=j$ and another contribution of 1 for $a$ and $b$ switched, however if $i=j$ there should only be 1 contribution of 1, this is visualized by \cref{tab:devtable}.
-For now however just proceed and hope it isn't a problem.
+This form however can't quite be made right for all $i,j,a,b$.
+Consider $i=j$, then the only non-zero choice for $a,b$ is $a=b=i=j$, this then gets a contribution of $2\kappa$, but it should be 1 as clearly $\pdv{E_{ii}}{E_{ii}} = \pdv{x}{x}=1$ (no sums).
+Thus to get the $i=j$ terms right we would need $\kappa=\frac{1}{2}$.
+
+However then for any $i\neq j$ we would get two non-zero options, either $a=i,b=j$ or $a=j,b=i$, for each of these the formula above gives $\kappa$.
+However for each of these we should get $\pdv{E_{ij}}{E_{ij}} = \pdv{E_{ij}}{E_{ij}} = 1$, this means $\kappa$ would have to be 1.
+
+Essentially the diagonal and off-didagonal elements of \EE\ would have to be treated differently, all of this can be nicely summarized by \cref{tab:devtable}.
 \begin{table}[H]
     \begin{center}
         \begin{tabular}{ c|c c c c c c c c c } 
@@ -34,8 +41,10 @@ For now however just proceed and hope it isn't a problem.
             32 & 0  &  0 &  0 &  0 &  0 &  0 &  0 &  1 &  1
         \end{tabular}
     \end{center}
-    \caption{The results of $\pdv{E_{ij}}{E_{ab}}$, rows and columns correspond to the $ij$ and $ab$ tuples and the table values to the partial derivative, clearly there is a difference between the $i=j$ and $i\neq j$ terms.}\label{tab:devtable}
+    \caption{The results of $\pdv{E_{ij}}{E_{ab}}$ for a symmetric \EE, rows and columns correspond to the $ij$ and $ab$ tuples and the table values to the partial derivative, clearly there is a difference between the $i=j$ and $i\neq j$ terms.}\label{tab:devtable}
 \end{table}
+
+\textbff{So in this work I adopt using $\pdv{E_{ij}}{E_{ab}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})$ and $\pdv{E_{ij,k}}{E_{abc}} = \kappa(\delta_{ai}\delta_{bj} + \delta_{aj}\delta_{bi})\delta_{kc}$ and leave $\kappa$ unspecified, hoping that we can then set it to 1 or $\frac{1}{2}$ depending on if $i=j$ in $\fdv{F}{E_{ij}^*}$}
 
 \subsection{Free energies and projection operators}
 \begin{align}
@@ -55,6 +64,7 @@ are the projection operators. We need to express these using $\du{E}$ as well, t
 \end{align}
 $\du{T}$ just being calculated from $\du{\Pi}$.
 
+\pagebreak
 \section{$F_\text{bulk}$}
 \subsection{Using $\kappa$}
 \begin{align}
@@ -72,7 +82,11 @@ and clearly
 \begin{align}
     \fdv{F_\text{bulk}}{E_{ij}^*} &= (A + B E_{ab}E_{ab}^*) E_{ij}
 \end{align}
+
+\pagebreak
 \section{$F_\text{comp}$ using \cref{eq:piex2}}
+(This lead to a symmetric result even without requiring symmetry of \EE, so this should lead to the same result)
+
 To simplify use $s=\sqrt{\frac{d-1}{d}}$ to get
 \begin{equation}
     \Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and recall} f_\text{comp} = (b_1^\parallel - b_1^\perp) \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp E_{ij,k}E_{ij,k}^*
@@ -80,10 +94,10 @@ To simplify use $s=\sqrt{\frac{d-1}{d}}$ to get
 So to get $\fdv{F_\text{comp}}{E_{ij}^*}$, the first term in the Euler-Lagrange equations will be 0 again as only gradients of \EE\ appear directly in the form of $f_\text{comp}$ and \PP\ only has non-conjugated elements of \EE\ appear.
 Thus
 \begin{align}
-    \fdv{F_\text{comp}}{E_{ij}^*} &= -\pp_k \pdv{f_\text{comp}}{E_{ij,k}} = -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{cd} E_{ab,c} (\ddelta{i}{j}{a}{b})\delta_{kd} + b_1^\perp E_{ab,c}(\ddelta{i}{j}{a}{b})\delta_{kc}) \\
-    &= -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} (E_{ij,c} + E_{ji,c}) + (E_{ij,k} + b_1^\perp E_{ji,k})) \\
-    &= -2\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,c} + b_1^\perp E_{ij,k}) \\
-    &= -2\qty((b_1^\parallel - b_1^\perp) \Pi_{ck,k} E_{ij,c} + (b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,ck} + b_1^\perp E_{ij,kk})
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -\pp_k \pdv{f_\text{comp}}{E_{ij,k}} = -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{cd} E_{ab,c} \kappa(\ddelta{i}{j}{a}{b})\delta_{kd} + b_1^\perp E_{ab,c}\kappa(\ddelta{i}{j}{a}{b})\delta_{kc}) \\
+    &= -\kappa\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} (E_{ij,c} + E_{ji,c}) + (E_{ij,k} + b_1^\perp E_{ji,k})) \\
+    &= -2\kappa\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,c} + b_1^\perp E_{ij,k}) \\
+    &= -2\kappa\qty((b_1^\parallel - b_1^\perp) \Pi_{ck,k} E_{ij,c} + (b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,ck} + b_1^\perp E_{ij,kk})
 \end{align}
 So we need
 \begin{align}
@@ -94,7 +108,19 @@ So we need
 \end{align}
 so together we get
 \begin{align}
-    \fdv{F_\text{comp}}{E_{ij}^*} &= -2\qty(\frac{s(b_1^\parallel - b_1^\perp)}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck}) E_{ij,c} + (b_1^\parallel - b_1^\perp) E_{ij,ck} + b_1^\perp E_{ij,kk})
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -2\kappa\qty(\frac{s(b_1^\parallel - b_1^\perp)}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck}) E_{ij,c} + (b_1^\parallel - b_1^\perp) E_{ij,ck} + b_1^\perp E_{ij,kk})
 \end{align}
+
+\section{The extra term in $F_\text{comp}$}
+Should be easy so might as well
+\begin{align}
+    \fdv{E_{ij}^*}\enspace b_1^d E_{ab,b}E_{ac,c}^* &= b_1^d \pp_d E_{ab,b} \pdv{E_{ac,c}^*}{E_{ij,d}^*} \\
+    &= b_1^d \pp_d E_{ab,b} \kappa(\delta_{ia}\delta_{jc}+\delta_{ic}\delta_{ja})\delta_{cd} \\
+    &= b_1^d \kappa \pp_d (E_{ib,b}\delta_{jc}\delta_{cd} + E_{jb,b}\delta_{ic}\delta_{cd}) \\
+    &= b_1^d \kappa \pp_d (E_{ib,b}\delta_{jd} + E_{jb,b}\delta_{id}) \\
+    &= b_1^d \kappa (E_{ib,bd}\delta_{jd} + E_{jb,bd}\delta_{id}) \\
+    &= b_1^d \kappa (E_{ib,bj} + E_{jb,bi}) \\
+\end{align}
+Agress with the result for unconstraint \EE\, except $\kappa$, as expected.
 
 \end{document}
