@@ -191,22 +191,50 @@ Continuing we also have
     &+\enspace (b_2^{\parallel\perp} - b_2^\perp)(2\kappa^{ab} \Pi_{kl}E_{ab,lk} \delta_{cd} + 4\kappa^{ab}\kappa^{cd} \Pi_{cd}E_{ab,kk}) + 2b_2^\perp \kappa^{ab} E_{ab,kk} \delta_{cd} \nonumber \\
     &\qq{expecting the $\kappa^{cd}$ to be a problem use the following} \nonumber \\
     \pdv{f_\text{curv}}{E_{ab,cd}^*}=&\enspace 2\kappa^{ab}\delta_{cd} ((b_2^{\parallel\perp}-b_2^\perp)\Pi_{kl}E_{ab,lk}+b_2^\perp E_{ab,kk}) \\
-    &+\enspace 4\kappa^{ab}\kappa^{cd} \Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})
+    &+\enspace 4\kappa^{ab}\kappa^{cd} \Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk}) \nonumber
 \end{align}
 so
 \begin{align}
     \fdv{F_\text{curv}}{E_{ab}^*} =&\enspace \pp_c\pp_d \pdv{f_\text{curv}}{E_{ab,cd}^*} \\
     =&\enspace 2\kappa^{ab} \pp_c\pp_c ((b_2^{\parallel\perp}-b_2^\perp)\Pi_{kl}E_{ab,lk}+b_2^\perp E_{ab,kk}) \\
-    &+\enspace 4\kappa^{ab}\kappa^{cd} \pp_c \pp_d (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \\
+    &+\enspace 4\kappa^{ab}\kappa^{cd} \pp_c \pp_d (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \nonumber \\
     =&\enspace 2\kappa^{ab} \pp_c ((b_2^{\parallel\perp}-b_2^\perp)(\Pi_{kl,c}E_{ab,lk}+\Pi_{kl}E_{ab,lkc}) + b_2^\perp E_{ab,kkc}) \\
-    &+\enspace 4\kappa^{ab}\kappa^{cd} \pp_c (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,d}E_{ab,lk}+\Pi_{kl}E_{ab,lkd}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkd}) \\
-    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd} \pp_c} + \Pi_{cd,d} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \\
+    &+\enspace 4\kappa^{ab}\kappa^{cd} \pp_c (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,d}E_{ab,lk}+\Pi_{kl}E_{ab,lkd}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkd}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd} \pp_c} + \Pi_{cd,d} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \nonumber \\
     =&\enspace 2\kappa^{ab} ((b_2^{\parallel\perp}-b_2^\perp)(\Pi_{kl,cc}E_{ab,lk}+2\Pi_{kl,c}E_{ab,lkc}+\Pi_{kl}E_{ab,lkcc}) + b_2^\perp E_{ab,kkcc}) \\
-    &+\enspace 4\kappa^{ab}\kappa^{cd} (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,dc}E_{ab,lk}+\Pi_{kl,d}E_{ab,lkc}+\Pi_{kl,c}E_{ab,lkd}+\Pi_{kl}E_{ab,lkdc}) \\
-    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd} (\Pi_{cd} (} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkdc}) \\
-    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,c} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,d}E_{ab,lk}+\Pi_{kl}E_{ab,lkd}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkd}) \\
-    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,d} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,c}E_{ab,lk}+\Pi_{kl}E_{ab,lkc}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkc}) \\
-    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \\
+    &+\enspace 4\kappa^{ab}\kappa^{cd} (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,dc}E_{ab,lk}+\Pi_{kl,d}E_{ab,lkc}+\Pi_{kl,c}E_{ab,lkd}+\Pi_{kl}E_{ab,lkdc}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd} (\Pi_{cd} (} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkdc}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,c} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,d}E_{ab,lk}+\Pi_{kl}E_{ab,lkd}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkd}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,d} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,c}E_{ab,lk}+\Pi_{kl}E_{ab,lkc}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkc}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \nonumber \\
+    &\qq{relabelling using symmetry of \PP\ (and $\kappa$) gives} \nonumber \\
+    =&\enspace 2\kappa^{ab} ((b_2^{\parallel\perp}-b_2^\perp)(\Pi_{kl,cc}E_{ab,lk}+2\Pi_{kl,c}E_{ab,lkc}+\Pi_{kl}E_{ab,lkcc}) + b_2^\perp E_{ab,kkcc}) \\
+    &+\enspace 4\kappa^{ab}\kappa^{cd} (\Pi_{cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,dc}E_{ab,lk}+2\Pi_{kl,c}E_{ab,lkd}+\Pi_{kl}E_{ab,lkdc}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkdc}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + 2\Pi_{cd,d} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})(\Pi_{kl,c}E_{ab,lk}+\Pi_{kl}E_{ab,lkc}) + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kkc}) \nonumber \\
+    &\enspace\phantom{+\enspace 4\kappa^{ab}\kappa^{cd}} + \Pi_{cd,cd} ((b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})\Pi_{kl}E_{ab,lk} + (b_2^{\parallel\perp}-b_2^\perp)E_{ab,kk})) \displaybreak \\
+    &\qq{or factoring the constants first} \nonumber \\
+    =&\enspace 2\kappa^{ab}\Big(
+        2\kappa^{cd}(b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})
+            (\Pi_{cd}\Pi_{kl,dc}E_{ab,lk}+2\Pi_{cd}\Pi_{kl,c}E_{ab,lkd}+\Pi_{cd}\Pi_{kl}E_{ab,lkcd} \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(2\kappa^{cd}(b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})}
+        +2\Pi_{cd,d}\Pi_{kl,c}E_{ab,lk}+2\Pi_{cd,d}\Pi_{kl}E_{ab,lkc}+\Pi_{cd,cd}\Pi_{kl}E_{ab,lk}) \nonumber \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(}
+        +(b_2^\parallel - b_2^\perp)(\Pi_{kl,cc}E_{ab,lk}+2\Pi_{kl,c}E_{ab,lkc}+\Pi_{kl}E_{ab,lkcc} \nonumber \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(+(b_2^\parallel - b_2^\perp)(}
+    + 2\kappa^{cd}(\Pi_{cd}E_{ab,kkdc} + 2\Pi_{cd,d}E_{ab,kkc} + \Pi_{cd,cd}E_{ab,kk})) \nonumber \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(}
+    + b_2^\perp E_{ab,kkcc} \Big) \nonumber \\
+    =&\enspace 2\kappa^{ab}\Big(
+        2\kappa^{cd}(b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})
+            ((\Pi_{cd}\Pi_{kl,dc}+2\Pi_{cd,d}\Pi_{kl,c}+\Pi_{cd,cd}\Pi_{kl})E_{ab,lk} \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(2\kappa^{cd}(b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp})}
+        +2(\Pi_{cd}\Pi_{kl,d}+\Pi_{cd,d}\Pi_{kl})E_{ab,lkc}+\Pi_{cd}\Pi_{kl}E_{ab,lkcd} \nonumber \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(}
+        +(b_2^\parallel - b_2^\perp)(\Pi_{kl,cc}E_{ab,lk}+2\Pi_{kl,c}E_{ab,lkc}+\Pi_{kl}E_{ab,lkcc} \nonumber \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(+(b_2^\parallel - b_2^\perp)(}
+    + 2\kappa^{cd}(\Pi_{cd}E_{ab,kkdc} + 2\Pi_{cd,d}E_{ab,kkc} + \Pi_{cd,cd}E_{ab,kk})) \nonumber \\
+    &\phantom{\enspace 2\kappa^{ab}\Big(}
+    + b_2^\perp E_{ab,kkcc} \Big) \nonumber
 \end{align}
 
 \end{document}
