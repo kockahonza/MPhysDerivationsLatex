@@ -61,7 +61,7 @@ where
 are the projection operators. We need to express these using $\du{E}$ as well, there are 2 options which I quote here
 \begin{align}
     \du{\Pi} & = \frac{d-1}{d-2}\qty(\frac{\du{E} \cdot \du{E}^*}{\du{E} \cddot \du{E}^*} - \frac{\du{\delta}}{d(d-1)}) \qq{or} \label{eq:piex1}\\
-    \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} - \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
+    \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} + \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
 \end{align}
 $\du{T}$ just being calculated from $\du{\Pi}$.
 
@@ -90,26 +90,26 @@ and clearly
 
 To simplify use $s=\sqrt{\frac{d-1}{d}}$ to get
 \begin{equation}
-    \Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and recall} f_\text{comp} = (b_1^\parallel - b_1^\perp) \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp E_{ij,k}E_{ij,k}^*
+    \Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} + \frac{\delta_{kl}}{d} \qq{and recall} f_\text{comp} = (b_1^\parallel - b_1^\perp) \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp E_{ij,k}E_{ij,k}^*
 \end{equation}
 So to get $\fdv{F_\text{comp}}{E_{ij}^*}$, the first term in the Euler-Lagrange equations will be 0 again as only gradients of \EE\ appear directly in the form of $f_\text{comp}$ and \PP\ only has non-conjugated elements of \EE\ appear.
 Thus
 \begin{align}
-    \fdv{F_\text{comp}}{E_{ij}^*} &= -\pp_k \pdv{f_\text{comp}}{E_{ij,k}} = -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{cd} E_{ab,c} \kappa(\ddelta{i}{j}{a}{b})\delta_{kd} + b_1^\perp E_{ab,c}\kappa(\ddelta{i}{j}{a}{b})\delta_{kc}) \\
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -\pp_k \pdv{f_\text{comp}}{E_{ij,k}^*} = -\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{cd} E_{ab,c} \kappa(\ddelta{i}{j}{a}{b})\delta_{kd} + b_1^\perp E_{ab,c}\kappa(\ddelta{i}{j}{a}{b})\delta_{kc}) \\
     &= -\kappa\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} (E_{ij,c} + E_{ji,c}) + (E_{ij,k} + b_1^\perp E_{ji,k})) \\
     &= -2\kappa\pp_k \qty((b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,c} + b_1^\perp E_{ij,k}) \\
     &= -2\kappa\qty((b_1^\parallel - b_1^\perp) \Pi_{ck,k} E_{ij,c} + (b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,ck} + b_1^\perp E_{ij,kk})
 \end{align}
 So we need
 \begin{align}
-    \Pi_{ck,k} &= \pp_k \qty( s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck} - \frac{\delta_{ck}}{d}) = s \pp_k \qty( \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck}) \\
+    \Pi_{ck,k} &= \pp_k \qty( s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck} + \frac{\delta_{ck}}{d}) = s \pp_k \qty( \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck}) \\
     &= s \qty(\qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck,k} - \frac{1}{2}\qty(E_{ab}E_{ab})^{-\frac{3}{2}}E_{ck}2E_{ab}E_{ab,k}) \\
     &= s \qty(\qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{ck,k} - \qty(E_{ab}E_{ab})^{-\frac{3}{2}}E_{ck}E_{ab}E_{ab,k}) \\
     &= \frac{s}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck})
 \end{align}
 so together we get
 \begin{align}
-    \fdv{F_\text{comp}}{E_{ij}^*} &= -2\kappa\qty(\frac{s(b_1^\parallel - b_1^\perp)}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck}) E_{ij,c} + (b_1^\parallel - b_1^\perp) E_{ij,ck} + b_1^\perp E_{ij,kk})
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -2\kappa\qty(\frac{s(b_1^\parallel - b_1^\perp)}{\sqrt{E_{ab}E_{ab}}} \qty(E_{ck,k} - \frac{E_{ab}E_{ab,k}}{E_{ab}E_{ab}}E_{ck}) E_{ij,c} + (b_1^\parallel - b_1^\perp) \Pi_{ck} E_{ij,ck} + b_1^\perp E_{ij,kk})
 \end{align}
 
 \section{The extra term in $F_\text{comp}$}
@@ -128,7 +128,7 @@ Agress with the result for unconstrained \EE\, except $\kappa$, as expected.
 \section{$F_\text{curv}$ using \cref{eq:piex2}}
 Starting from
 \begin{align}
-    &\Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} - \frac{\delta_{kl}}{d} \qq{and} \\
+    &\Pi_{kl} = s \qty(E_{ab}E_{ab})^{-\frac{1}{2}}E_{kl} + \frac{\delta_{kl}}{d} \qq{and} \\
     &f_\text{curv} = b_2^\parallel \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* + b_2^\perp T_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + b_2^{\parallel\perp}(\Pi_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + T_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^*)
 \end{align}
 from \cref{sec:freeenergies}, where $s=\sqrt{\frac{d-1}{d}}$.

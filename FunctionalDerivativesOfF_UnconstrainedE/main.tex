@@ -44,7 +44,7 @@ where
 are the projection operators. We need to express these using $\du{E}$ as well, there are 2 options which I quote here
 \begin{align}
     \du{\Pi} & = \frac{d-1}{d-2}\qty(\frac{\du{E} \cdot \du{E}^*}{\du{E} \cddot \du{E}^*} - \frac{\du{\delta}}{d(d-1)}) \qq{or} \label{eq:piex1}\\
-    \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} - \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
+    \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} + \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
 \end{align}
 $\du{T}$ just being calculated from $\du{\Pi}$.
 
@@ -151,7 +151,7 @@ We can still use the Euler-Lagrange version of the functional derivative as befo
 
 So lets use 
 \begin{equation}
-    \Pi_{kl} = s \frac{E_{kl} }{\sqrt{E_{ab}E_{ab}}}- \frac{\delta_{kl}}{d} \qq{and} f_\text{comp} = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
+    \Pi_{kl} = s \frac{E_{kl} }{\sqrt{E_{ab}E_{ab}}} + \frac{\delta_{kl}}{d} \qq{and} f_\text{comp} = b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp (\delta_{kl} - \Pi_{kl}) E_{ij,k}E_{ij,l}^*
 \end{equation}
 with $s = \sqrt{\frac{d-1}{d}}$
 
@@ -162,13 +162,12 @@ So lets get the second term, for that we can reuse \cref{eq:secondtermfirst} to 
 \end{equation}
 so we need
 \begin{align}
-    \pp_c \Pi_{kc} &= s\qty(\frac{E_{kc,c}}{\sqrt{\YY[b]{a}{a}}} - \frac{E_{kc}(E_{ab,c}E_{ab}^* + E_{ab}E_{ab,c}^*)}{2(\YY[b]{a}{a})^\frac{3}{2}}) \\
-    &= \frac{s}{\sqrt{\YY[b]{a}{a}}} \qty(E_{kc,c} - \frac{E_{kc}(E_{ab,c}E_{ab}^* + E_{ab}E_{ab,c}^*)}{2\YY[b]{a}{a}}) \\
+    \pp_c \Pi_{kc} &= s\qty(\frac{E_{kc,c}}{\sqrt{E_{ab}E_{ab}}} - \frac{E_{kc}(E_{ab,c}E_{ab} + E_{ab}E_{ab,c})}{2(E_{ab}E_{ab})^\frac{3}{2}}) \\
+    &= \frac{s}{\sqrt{E_{ab}E_{ab}}} \qty(E_{kc,c} - \frac{E_{kc}E_{ab}E_{ab,c}}{E_{ab}E_{ab}}) \\
 \end{align}
 giving
 \begin{align}
-    \fdv{F_\text{comp}}{E_{ij}^*} &= -\frac{s}{\sqrt{\YY[b]{a}{a}}}\qty(b_1^\parallel - b_1^\perp) \qty(E_{kc,c} - \frac{E_{kc}(E_{ab,c}E_{ab}^* + E_{ab}E_{ab,c}^*)}{2\YY[b]{a}{a}}) E_{ij,k} - \qty(b_1^\perp E_{ij,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc}) \\
-    &= -\frac{s\qty(b_1^\parallel - b_1^\perp)}{\sqrt{\YY[b]{a}{a}}} \qty(E_{kc,c} - \frac{E_{kc}E_{ab}E_{ab,c}^*}{\YY[b]{a}{a}}) E_{ij,k} - \qty(b_1^\perp E_{ij,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc}) \qq{if we use normality}
+    \fdv{F_\text{comp}}{E_{ij}^*} &= -\frac{s}{\sqrt{E_{ab}E_{ab}}}\qty(b_1^\parallel - b_1^\perp) \qty(E_{kc,c} - \frac{E_{kc}E_{ab}E_{ab,c}}{E_{ab}E_{ab}}) E_{ij,k} - \qty(b_1^\perp E_{ij,cc} + \qty(b_1^\parallel - b_1^\perp) \Pi_{kc} E_{ij,kc})
 \end{align}
 
 \section{The divergence term of $f_\text{comp}$}
