@@ -82,6 +82,9 @@ First recap the expressions
     \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} + \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
 \end{align}
 
+\paragraph{The problem with \cref{eq:piex1}} I think may be that \cref{eq:piex2} will be symmetric whenever \EE\ is symmetric, whereas the symmetry of \cref{eq:piex1} depends on normality of \EE.
+
+
 \subsection{Starting off}
 As before, from normality we have
 \begin{equation}
@@ -126,7 +129,7 @@ so that according to \cref{eq:piex2}
     % &= \beta_1 (\su{U_1}\su{U_1} - \frac{\du{\delta}}{3}) + \beta_2 (\su{U_2}\su{U_2} - \frac{\du{\delta}}{3}) \label{eq:biaxialraw}
     \du{\Pi} = \frac{\beta_1}{\beta}(\su{U_1}\su{U_1} - \frac{\du{\delta}}{3}) + \frac{\beta_2}{\beta}(\su{U_2}\su{U_2} - \frac{\du{\delta}}{3}) + \frac{\du{\delta}}{d}
 \end{equation}
-and then I used Methamatica to expand in terms of $\epsilon$ and using $\sqrt{\beta_1^2}=\beta_1$, to get
+and then I used Mathematica to expand in terms of $\epsilon$ and using $\sqrt{\beta_1^2}=\beta_1$, to get
 \begin{equation}
     \du{\Pi} = \su{U_1}\su{U_1} - \frac{\epsilon}{2\beta_1}(\su{U_1}\su{U_1} - 2\su{U_2}\su{U_2} + \frac{\du{\delta}}{3}) + \frac{\epsilon^2}{8\beta_1^2}(\su{U_1}\su{U_1} + 4\su{U_2}\su{U_2} - \frac{5\du{\delta}}{3}) + \mathcal{O}(\epsilon^3)
 \end{equation}
