@@ -62,8 +62,6 @@ Use units such that in them $C, b_1$ and $\mu$ each have the value 1 in their re
      T &= \frac{1}{\mu E} = \frac{1}{\mu b_1 L} = \frac{1}{\mu} \sqrt{\frac{C}{b_1^3}} \nonumber
 \end{align}
 \end{minipage}
-this leaves 2 dimensionfull parameters, $A$ which can be positive or negative and $b_2$ which can only be positive.
-Later on, when the projection operators are implemented, the two dimensionless $b^?$ will also be added.
 
 \subsubsection*{Resulting physical quantities}
 I also list the formulas for the quantities Jack discussed in section 3.5 of his thesis, here I'm a little unsure about the correctness however (say, I'm not sure if I should propagate the changes to the $\frac{1}{2}$ factors or not), one thing is that I'm not sure how the $\parallel$ and $\perp$ parts should be involved so what I quote is only for the 1c.a. case.
@@ -71,8 +69,15 @@ Here the lowercase letters $a$ and $b$ represent the numeric values used in the 
 \begin{align}
     \varepsilon &= \sqrt{\frac{b_1}{|A|}} = \sqrt{\frac{1}{|a|}} L \\
     \lambda &= \sqrt{\frac{b_2}{b_1}} = \sqrt{b} L \\
-    \kappa &= \frac{\lambda}{\varepsilon} = \sqrt{\frac{b}{a}}
+    \kappa &= \frac{\lambda}{\varepsilon} = \sqrt{\frac{b}{|a|}}
 \end{align}
+
+\subsubsection*{Implementation}
+This leaves 2 dimensionfull parameters, $A$ which can be positive or negative and $b_2$ which can only be positive.
+$A$ is specified directly as $a$ which, as in the previous bit, is the numerical value in the units above.
+$b_2$ is specified through the square of the Ginzburg parameter $\kappa^2$ (dimensionless, see above).
+
+Later on, when the projection operators are implemented, the two dimensionless $b^?$ will also be added.
 
 
 \vspace{3em}
