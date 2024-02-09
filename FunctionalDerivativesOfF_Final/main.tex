@@ -29,12 +29,12 @@ In this document I will only use the square root version of \PP\ and so we do no
     &\phantom{\frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(} + 3\frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2} \Biggr)
 \end{align}
 \begin{align}
-    f_\text{bulk} =&\enspace \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
+    f_\text{bulk} =&\enspace A E_{ij}E_{ij}^* + \frac{C}{2} (E_{ij}E_{ij}^*)^2 \\
     f_\text{comp} =&\enspace b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \\
     f_\text{curv} =&\enspace b_2^\parallel \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* + b_2^\perp T_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + b_2^{\parallel\perp}(\Pi_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + T_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^*)
 \end{align}
 \begin{align}
-    \fdv{F_\text{bulk}}{E_{ij}^*} =&\enspace \frac{1}{2}\qty(A + C E_{ab}E_{ab}^*)E_{ij} \\
+    \fdv{F_\text{bulk}}{E_{ij}^*} =&\enspace \qty(A + C E_{ab}E_{ab}^*)E_{ij} \\
     \fdv{F_\text{comp}}{E_{ij}^*} =&\enspace -(b_1^\parallel - b_1^\perp) (\Pi_{kl,l} E_{ij,k} + \Pi_{kl} E_{ij,kl}) - b_1^\perp E_{ij,kk} \\
     \fdv{F_\text{curv}}{E_{ij}^*} =&\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl( (\Pi_{kl}\Pi_{po,po} + 2\Pi_{kl,o}\Pi_{po,p} + \Pi_{kl,po}\Pi_{po})E_{ij,lk} \\
     &\phantom{\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl(}+ 2(\Pi_{kl,o}\Pi_{po} + \Pi_{kl}\Pi_{po,o})E_{ij,lkp} + \Pi_{kl}\Pi_{po}E_{ij,lkpo} \Bigr) \nonumber \\
@@ -72,7 +72,7 @@ gives
 We start from the following terms, though quickly reorganize them in terms of \PP\ only
 \begin{align}
     F &= \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
-    f_\text{bulk} &= \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
+    f_\text{bulk} &= A E_{ij}E_{ij}^* + \frac{C}{2} (E_{ij}E_{ij}^*)^2 \\
     f_\text{comp} &= b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \qq{maybe try adding} b_1^d E_{ij,j}E_{ik,k}^* \qq{later too} \label{eq:fcompdef} \\
     f_\text{curv} &= b_2^\parallel \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* + b_2^\perp T_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + b_2^{\parallel\perp}(\Pi_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + T_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^*)
 \end{align}
@@ -89,7 +89,7 @@ and
 
 \subsection{$F_\text{bulk}$}
 \begin{equation}
-    \fdv{E_{ij}^*} \qty(\frac{A}{2} E_{ab}E_{ab}^* + \frac{C}{4} (E_{ab}E_{ab}^*)^2) = \qty(\frac{A}{2} + \frac{C}{2}E_{ab}E_{ab}^*)E_{ij}
+    \fdv{E_{ij}^*} \qty(A E_{ab}E_{ab}^* + \frac{C}{2} (E_{ab}E_{ab}^*)^2) = \qty(A + CE_{ab}E_{ab}^*)E_{ij}
 \end{equation}
 \shortnote{doesn't need symmetrizing, and using the symmetric functional derivative gives the same}
 
