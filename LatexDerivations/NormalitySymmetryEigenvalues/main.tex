@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
+
+\input{../shared_preamble.tex}
+
+\begin{document}
+\begin{center}
+    \LARGE
+    \textbf{Showing that requiring normality, symmetry and eigenvalues gives a form for $\du{E}$}
+\end{center}
+\vspace{1em}
+
+As motivated in Jack's thesis, if we \textbff{take the eigenvalues of $\du{E}$ to be proportional to $\psi$, add to zero} (to make $\du{E}$ traceless) \textbff{and all except one be equal} (nearly fully degenerate) to choose one "special" axis.
+Then they must all be $\frac{-\psi}{d}$ except the special one which is $\frac{(d-1)\psi}{d}$ (up to scaling).
+If we further \textbff{require $\du{E}$ to be normal}, then it can be diagonalised using a unitary matrix (this I got from wikipedia), such that
+\begin{align}
+    \du{E} &= \du{U}^\dagger \begin{pmatrix}
+        \frac{-\psi}{d} & \dots & 0 \\
+        \vdots & \ddots & \vdots\\
+        0 & \dots & \frac{(d-1)\psi}{d}
+    \end{pmatrix} \du{U} \qq{where $\du{U}$ is unitary} \\
+    &= \frac{\psi}{d} \du{U}^\dagger \begin{pmatrix}
+        -1 & \dots & 0 \\
+        \vdots & \ddots & \vdots\\
+        0 & \dots & d-1
+    \end{pmatrix} \du{U} = \frac{\psi}{d} \du{U}^\dagger \qty(\begin{pmatrix}
+        0 & \dots & 0 \\
+        \vdots & \ddots & \vdots\\
+        0 & \dots & d
+    \end{pmatrix} - \du{\delta}) \du{U} \\
+    &= \frac{\psi}{d} \qty(\du{U}^\dagger \begin{pmatrix}
+        0 & \dots & 0 \\
+        \vdots & \ddots & \vdots\\
+        0 & \dots & d
+    \end{pmatrix} \du{U} - \du{\delta}) \\
+\end{align}
+now switching to index notation
+\begin{align}
+    E_{ij} &= \psi \qty(U^\dagger_{id}U_{dj} - \frac{\delta_{ij}}{d}) \qq{$d$ is the dimension here, not a dummy index} \\
+    &= \psi \qty(U^*_{di}U_{dj} - \frac{\delta_{ij}}{d})
+\end{align}
+So only a single (the last) row of $\du{U}$ has any effect.
+To move further, recall that the \textbff{rows (or columns) or a unitary matrix for a complex orthonormal basis}.
+Thus, if we are only considering a single row, the only constraint that applies is that it's nor has to be 1.
+I also switch to \textbff{specifically considering $d=3$} here to make it simpler, but I expect it's general.
+Parametrize this last row as follows
+\begin{align}
+    \su{U_3} &\leftrightarrow \begin{pmatrix} R_ae^{i\phi_a} & R_be^{i\phi_b} & R_ce^{i\phi_c} \end{pmatrix} \qq{with} R_a, R_b, R_c \geq 0 \qq{and} R_a^2 + R_b^2 + R_c^2 = 1 \\
+    &\qq{and} \nonumber \\
+    \su{U^*_3} &\leftrightarrow \begin{pmatrix} R_ae^{-i\phi_a} & R_be^{-i\phi_b} & R_ce^{-i\phi_c} \end{pmatrix}
+\end{align}
+this gives $\du{E}$ as
+\begin{align}
+    \du{E} &\leftrightarrow \psi \qty(\begin{pmatrix}
+        R_a^2 & R_a R_b e^{i(\phi_b-\phi_a)} & R_a R_c e^{i(\phi_c-\phi_a)} \\
+        R_a R_b e^{-i(\phi_b-\phi_a)} & R_b^2 & R_b R_c e^{i(\phi_c-\phi_b)} \\
+        R_a R_c e^{-i(\phi_c-\phi_a)} & R_b R_c e^{-i(\phi_c-\phi_b)} & R_c^2
+    \end{pmatrix} - \frac{\du{\delta}}{d}) \label{eq:presymm}
+\end{align}
+
+\pagebreak
+Finally, \textbff{requiring $\du{E}$ to be symmetric} means each of the phase differences above must be an integer multiple of $\pi$ (as $e^{i\theta}=e^{-i\theta}$ iff $\theta$ is an integer multiple of $\pi$).
+Using $\phi_b-\phi_a = k\pi$ and $\phi_c-\phi_a=n\pi$ gives $\phi_c-\phi_b=(n-k)\pi$.
+Focusing on the matrix in \cref{eq:presymm}, noting that the terms in it only depend on whether each of $n$, $k$, $n-k$ are odd or even we end up with 4 options for $\du{E}$, each equivalent to $\psi\qty(\su{R}\su{R}-\frac{\du{\delta}}{d})$ with a different $\su{R}$.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{ c|c|c c c c } 
+            $k$ & $n$ & $n-k$ & & The term appearing in $\du{E}$ & $\su{R}$ \\
+             \hline
+             even & even & even & $\leftrightarrow$ & $\begin{pmatrix}R_a^2 & R_a R_b & R_a R_c \\ R_a R_b & R_b^2 & R_b R_c \\ R_a R_c & R_b R_c & R_c^2 \end{pmatrix}$ & $\begin{pmatrix}R_a & R_b & R_c\end{pmatrix}$ \\
+            &&&&\\
+             even & odd & odd & $\leftrightarrow$ & $\begin{pmatrix}
+                R_a^2 & R_a R_b & -R_a R_c \\
+                R_a R_b & R_b^2 & -R_b R_c \\
+                -R_a R_c & -R_b R_c & R_c^2
+                 \end{pmatrix}$ & $\begin{pmatrix}R_a & R_b & -R_c\end{pmatrix}$ \\
+            &&&&\\
+             odd & even & odd & $\leftrightarrow$ & $\begin{pmatrix}
+                R_a^2 & -R_a R_b & R_a R_c \\
+                -R_a R_b & R_b^2 & -R_b R_c \\
+                R_a R_c & -R_b R_c & R_c^2
+                 \end{pmatrix}$ & $\begin{pmatrix}R_a & -R_b & R_c\end{pmatrix}$ \\
+            &&&&\\
+             odd & odd & even & $\leftrightarrow$ & $\begin{pmatrix}
+                R_a^2 & -R_a R_b & -R_a R_c \\
+                -R_a R_b & R_b^2 & R_b R_c \\
+                -R_a R_c & R_b R_c & R_c^2
+                 \end{pmatrix}$ & $\begin{pmatrix}-R_a & R_b & R_c\end{pmatrix}$
+        \end{tabular}
+    \end{center}
+    \caption{The 4 options for $\du{E}$}
+\end{table}
+Finally recalling that each of the $R_?$ components are positive and that $R_a^2 + R_b^2 + R_c^2 = 1$, we thus get that any $\du{E}$ must be of the form $\psi\qty(\su{N}\su{N} - \frac{\du{\delta}}{d})$ for some unit vector $\su{N}$ pointing into one of the 4 quadrants where at most 1 Cartesian component is negative, which spans exactly the rotational symmetry we require of the system.
+
+\end{document}

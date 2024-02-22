@@ -1,0 +1,51 @@
+\documentclass[11pt]{article}
+\usepackage[top=30mm,bottom=30mm,left=20mm,right=20mm]{geometry}
+\input{../shared_preamble.tex}
+
+\interdisplaylinepenalty=3000
+
+\begin{document}
+\begin{center}
+    \LARGE
+    \textbf{Final Non-dimensionalization notes}
+\end{center}
+\vspace{1em}
+\section{Cheatsheet of quantities to use}
+\begin{align}
+    f_\text{bulk} =&\enspace A E_{ij}E_{ij}^* + \frac{C}{2} (E_{ij}E_{ij}^*)^2 \\
+    f_\text{comp} =&\enspace b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \\
+    f_\text{cdiv} =&\enspace b_d |\su{\nabla} \cdot \du{E}|^2 = b_d E_{ji,j}E_{ji,j}^* \qq{No \PP\ for now}\\
+    f_\text{curv} =&\enspace b_2^\parallel \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* + b_2^\perp T_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + b_2^{\parallel\perp}(\Pi_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + T_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^*)
+\end{align}
+$C$, and all the $b$s are positive
+And a time evolution of form
+\begin{equation}
+    \pdv{\du{E}}{t} = -\mu \fdv{F}{\du{E}^*}
+\end{equation}
+\noindent\fbox{\parbox{\textwidth}{
+    Notable differences from Jack's are that I omit the 2 extra factors of $\frac{1}{2}$ in the bulk contribution and change $\mu$ to its inverse.
+}}
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{c | c | c | c | c | c }
+        quantity & \EE & $A$, $C$ & $b_1^?$, $b_d$ & $b_2^?$ & $\mu$ \\
+        \hline
+        unit & 1 & $\frac{E}{L^3}$ & $\frac{E}{L}$ & $E L$ & $\frac{1}{E T}$ \\
+    \end{tabular}
+\end{center} 
+
+\subsection{Dealing with the amount of $b$s and physical quantities}
+Introduce $b_1$ and $b_2$ to set the overall scale for the bs, these also correspond to the 1ca $b$s.
+Then have $b_i^? = q_i^? b_i$, in the code one can set the $b_i$ and the $q$s (this naturally has a degree of degeneracy).
+I then use the overall $b_i$ for the physical quantities Jack introduced, this is likely not perfect but if proceeding with care makes some sense.
+I also don't worry about the $\frac{1}{2}$ factors fro bulk terms as it is to order of magnitude anyway.
+
+\begin{align}
+    |\psi|_{eq} &= \sqrt{\frac{3}{2} * \frac{-A}{C}} \qq{The ideal smectic phase value, dimensionless}\\
+    \varepsilon &= \sqrt{\frac{b_1}{|A|}} \qq{Lamellar in-plane coherence length, $L$} \\
+    \lambda &= \sqrt{\frac{b_2}{b_1}} \qq{Penetration depth, $L$} \\
+    \kappa &= \frac{\lambda}{\varepsilon} = \sqrt{\frac{b_2|A|}{b_1^2}} \qq{Ginzburg parameter, dimensionless}
+\end{align}
+
+\end{document}

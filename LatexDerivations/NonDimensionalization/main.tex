@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
+\input{../shared_preamble.tex}
+
+\interdisplaylinepenalty=3000
+
+\begin{document}
+\begin{center}
+    \LARGE
+    \textbf{Non-dimensionalization}
+\end{center}
+\vspace{1em}
+I will be using the following free energies here
+\begin{align}
+    f_\text{bulk} =&\enspace A |\du{E}|^2 + \frac{C}{2} |\du{E}|^4 \\
+    f_\text{comp} =&\enspace b_1 |\su{\nabla}\du{E}|^2 \\
+    f_\text{curv} =&\enspace b_2 |\nabla^2\du{E}|^2 \\
+\end{align}
+where $C$, and all the $b$s are positive, but $A$ can be negative.
+And a time evolution of form
+\begin{equation}
+    \pdv{\du{E}}{t} = -\mu \fdv{F}{\du{E}^*}
+\end{equation}
+\noindent\fbox{\parbox{\textwidth}{
+Notable differences from Jack's is that I omit the 2 extra factors of $\frac{1}{2}$ in the bulk contribution, deal with the $\parallel$ and $\perp$ parts slightly differently, and change $\mu$ to its inverse.
+}}
+
+Here 3 dimensions come up -- energy ($E$), length ($L$) and time ($T$) and the quantities above have units as follows:
+\begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{c | c | c | c | c | c | c }
+        quantity & \EE & $A$ & $C$ & all the $b_1$ & all the $b_2$ & $\mu$ \\
+        \hline
+        unit & 1 & $\frac{E}{L^3}$ & $\frac{E}{L^3}$ & $\frac{E}{L}$ & $E L$ & $\frac{1}{E T}$ \\
+    \end{tabular}
+\end{center}
+
+This is all that is needed for 1c.a., and later on the projections operators can be introduced through $\su{\nabla} \rightarrow b^\parallel \du{\Pi} \cdot \su{\nabla} + b^\perp \du{T} \cdot \su{\nabla}$ with both $b$s in there being dimensionless.
+Now there is currently more degrees of freedom here than needed, as both the $b_?$ and the $b^?$ affect the overall magnitudes of the terms in the free energy.
+I'm not too sure how to resolve that, maybe this picture isn't perfect, or maybe the $b^?$ should be constrained to remove a d.o.f.?
+One possible constraint would be to make them components of a unit vector.
+
+\subsection*{Units for simulation}
+In the simulation we are free to choose the units we work with, so that leaves 3 quantities we can choose as we like.
+\par\noindent\fbox{\parbox{\textwidth}{
+Inspecting Jack's code I'm pretty sure he used $C$, $b_1$ (in 1c.a.) and $\mu$, in the last version of his code I suspect he set $C$ to 2 (maybe to test something) and $\mu$ and $b_1$ to 1.
+}}
+
+Okay, so I'm kinda struggling to find the best way to do this, so let me just define a simple way to do it for the computations.
+Use units such that in them $C, b_1$ and $\mu$ each have the value 1 in their respective units, then
+\par\noindent\begin{minipage}{.5\linewidth}
+\begin{align}
+    C =& \frac{E}{L^3} \nonumber \\
+    b_1 =& \frac{E}{L} \\
+    \mu =& \frac{1}{E T} \nonumber
+\end{align}
+\end{minipage}
+\noindent\begin{minipage}{.5\linewidth}
+\begin{align}
+     L &= \sqrt{\frac{b_1}{C}} \nonumber \\
+     E &= b_1 L = \sqrt{\frac{b_1^3}{C}} \\
+     T &= \frac{1}{\mu E} = \frac{1}{\mu b_1 L} = \frac{1}{\mu} \sqrt{\frac{C}{b_1^3}} \nonumber
+\end{align}
+\end{minipage}
+
+\subsubsection*{Resulting physical quantities}
+I also list the formulas for the quantities Jack discussed in section 3.5 of his thesis, here I'm a little unsure about the correctness however (say, I'm not sure if I should propagate the changes to the $\frac{1}{2}$ factors or not), one thing is that I'm not sure how the $\parallel$ and $\perp$ parts should be involved so what I quote is only for the 1c.a. case.
+Here the lowercase letters $a$ and $b$ represent the numeric values used in the code for $A$ and $b_2$.
+\begin{align}
+    \varepsilon &= \sqrt{\frac{b_1}{|A|}} = \sqrt{\frac{1}{|a|}} L \\
+    \lambda &= \sqrt{\frac{b_2}{b_1}} = \sqrt{b} L \\
+    \kappa &= \frac{\lambda}{\varepsilon} = \sqrt{\frac{b}{|a|}}
+\end{align}
+
+\subsubsection*{Implementation}
+This leaves 2 dimensionfull parameters, $A$ which can be positive or negative and $b_2$ which can only be positive.
+$A$ is specified directly as $a$ which, as in the previous bit, is the numerical value in the units above.
+$b_2$ is specified through the square of the Ginzburg parameter $\kappa^2$ (dimensionless, see above).
+
+Later on, when the projection operators are implemented, the two dimensionless $b^?$ will also be added.
+
+
+\vspace{3em}
+\subsection*{Bit of a discussion that I'm not sure goes anywhere}
+Now for a uniaxial smectic we have $|\du{E}|^2 = \frac{d-1}{d}||\psi||^2$
+Clearly for a fully isotropic phase $\du{E} = 0 \rightarrow \psi = 0$, if we want to "define" $\psi$ such that it is 1 in a fully smectic phase.
+
+\end{document}

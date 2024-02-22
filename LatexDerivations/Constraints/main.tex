@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+\usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
+
+\input{../shared_preamble.tex}
+
+\begin{document}
+\begin{center}
+    \LARGE
+    \textbf{Exploring various constraints and their consequences}
+\end{center}
+\vspace{1em}
+\section{Normality, symmetry and tracelessness}\label{sec:nosytr}
+\begin{align}
+    \du{E} &= \du{U}^\dagger \begin{pmatrix}
+        \lambda_1 & 0 & 0 \\
+        0 & \lambda_2 & 0 \\
+        0 & 0 & - \lambda_1 - \lambda_2
+    \end{pmatrix} \du{U} \qq{where $\du{U}$ is unitary} \\
+    &= (\lambda_1+\lambda_2)\du{U}^\dagger \begin{pmatrix}
+        \frac{\lambda_1}{\lambda_1+\lambda_2} & 0 & 0 \\
+        0 & \frac{\lambda_2}{\lambda_1+\lambda_2} & 0 \\
+        0 & 0 & -1
+    \end{pmatrix} \du{U} \\
+    &= (\lambda_1+\lambda_2)\du{U}^\dagger \qty(\begin{pmatrix}
+        \frac{\lambda_1}{\lambda_1+\lambda_2}+1 & 0 & 0 \\
+        0 & \frac{\lambda_2}{\lambda_1+\lambda_2}+1 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix} - \du{\delta}) \du{U} \\
+    \implies E_{ij} &= (\lambda_1+\lambda_2)\qty(\alpha_1 U_{1i}^*U_{1j} + \alpha_2 U_{2i}^*U_{2j} - \delta_{ij}) \qq{with} \alpha_i = \frac{\lambda_i}{\lambda_1+\lambda_2} + 1 \\
+    \qq{or} E_{ij} &= \beta_1 U_{1i}^*U_{1j} + \beta_2 U_{2i}^*U_{2j} - (\lambda_1+\lambda_2)\delta_{ij} \qq{with} \beta_i = 2\lambda_i + \lambda_\text{the other} = \lambda_i - \lambda_3
+\end{align}
+Imposing symmetry seems a bit tricky, but try it generally as
+\begin{equation}
+    \beta_1 U_{1i}^*U_{1j} + \beta_2 U_{2i}^*U_{2j} = \beta_1 U_{1j}^*U_{1i} + \beta_2 U_{2j}^*U_{2i}
+\end{equation}
+then by a very physicsy argument, the $\beta$ are free to be anything (note that the $\lambda \rightarrow \beta$ transformation is invertible, so we can treat the $\beta$ as our degrees of freedom), and the symmetry must still hold, thus for $k\in\{i,j\}$
+\begin{equation}
+    U_{ki}^*U_{kj} = U_{kj}^*U_{ki} \qq{no sum on $k$}
+\end{equation}
+which leads to each $\su{U_k}$ being of the same form as in NormalitySymmetryEigenvalues, essentially a real unit vector (with it being possibly constrained to half of the options due to parity symmetry of the dyadic products above).
+Note that they still have to be mutually orthogonal.
+This leads to
+\begin{align}
+    \du{E} &= \beta_1 \su{U_1}\su{U_1} + \beta_2 \su{U_2}\su{U_2} - (\lambda_1+\lambda_2)\du{\delta} \\
+    &\qq{recognising the $\beta$ are a more natural choice} \\
+    \du{E} &= \beta_1 \su{U_1}\su{U_1} + \beta_2 \su{U_2}\su{U_2} - \frac{\beta_1 + \beta_2}{3}\du{\delta} \\
+    &= \beta_1 (\su{U_1}\su{U_1} - \frac{\du{\delta}}{3}) + \beta_2 (\su{U_2}\su{U_2} - \frac{\du{\delta}}{3}) \label{eq:biaxialraw}
+\end{align}
+
+Also, to summarize for possible future reference relationship of $\beta$s and $\lambda$s:
+\begin{equation}
+    \begin{pmatrix} \beta_1 \\ \beta_2 \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix} \begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix} \Leftrightarrow \begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix} = \frac{1}{3}\begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} \begin{pmatrix} \beta_1 \\ \beta_2 \end{pmatrix} \label{eq:betalambda}
+\end{equation}
+
+\pagebreak
+\textbff{Thus requiring normality, symmetry and tracelessness of \EE\ is equivalent to requiring it to have the form of $\psi_1(\su{N}\su{N} - \frac{\du{\delta}}{3}) + \psi_2(\su{M}\su{M} - \frac{\du{\delta}}{3})$ for $\psi_1$, $\psi_2$ being independent complex numbers and $\su{N}$ and $\su{M}$ being orthogonal real unit vectors (optionally constrained to half of the space), a form very reminiscent of the biaxial form of the nematic $\du{Q}$}
+
+Overall this gives 2+2+3=7 degrees of freedom, 2 for each complex number and 3 for the 2 unit vectors.
+Note that the result does not have a single complex phase!
+If we were to force that they do have the same phase, we go down to 6 dof (the same number of dof for a single-complex-phase, symmetric and traceless \EE), and it has a questionable physics interpretation -- we are fixing the $\phi$s of the 2 order parameters, while keeping independent $|\psi|$ -- it does not seem to imply uniaxiality.
+
+Uniaxiality would occur if $\beta_2 = 0 \Leftrightarrow \lambda_1 = -2\lambda_2$ which gives the recogniseable, doubly-degenerate eigenvalues $-2\lambda, \lambda, \lambda$
+
+\section{Summary of considered constraints}
+In any case we require symmetry (in practice achieved through symmetrising the functional derivatives) and tracelessness (enforced through a relatively simple Lagrange multiplier).
+Then there are essentially 2 paths, the more theoretically clear one is requiring normality leading to the results in \cref{sec:nosytr} and then considering whether or how to force uniaxiality.
+The other, used before is requiring a single complex phase (aka $\du{E} = e^{i\phi}T_{ij}$, shorthanded as SCP), this naturally implies normality.
+
+Path 1 gives a fully biaxial \EE\ with 7 dof.
+
+Path 2 implies normality and thus all of path 1, but it is easy to count the resulting \EE\ has 1 dof for the phase, then 6 - 1 = 5 dof for the symmetric and traceless real matrix.
+So overall 6 dof, thus we get that SCP is a stronger constraint than only normality, with the minimum extra constraint being that the eigenvalues of \EE\ have to have the same phase, but independent magnitudes, being somewhat partially biaxial.
+
+So in summary, the minumum constraints for a biaxial \EE\ are normality, symmetry and traceleness. And neither SCP nor any other set of constraints explored so far are sufficient to guarantee uniaxiality, which would only have 4 dof (2 for $\psi$ and 2 for $\su{N}$).
+
+\newpage
+\section{Expressions for \PP\ assuming only symmetry, tracelessness and normality}
+When wanting to separate deformations parallel and perpendicular to $\su{N}$ of a uniaxial \EE\ we need $\du{\Pi} = \su{N}\su{N}$ for which we have two expressions, both valid for the case of a uniaxial \PP, here I try to see how they both behave with a possibly biaxial \EE.
+First recap the expressions
+\begin{align}
+    \du{\Pi} & = \frac{d-1}{d-2}\qty(\frac{\du{E} \cdot \du{E}^*}{\du{E} \cddot \du{E}^*} - \frac{\du{\delta}}{d(d-1)}) \qq{which seems more implicitly dependent on normality, and} \label{eq:piex1}\\
+    \du{\Pi} & = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} + \frac{\du{\delta}}{d} \label{eq:piex2} \qq{which has a complex square root}
+\end{align}
+
+\paragraph{The problem with \cref{eq:piex1}} I think may be that \cref{eq:piex2} will be symmetric whenever \EE\ is symmetric, whereas the symmetry of \cref{eq:piex1} depends on normality of \EE.
+
+
+\subsection{Starting off}
+As before, from normality we have
+\begin{equation}
+    \du{E} = \du{U}^\dagger \cdot \du{D} \cdot \du{U} \qq{with unitray $\du{U}$ and $\du{D}$ containing the complex eigenvalues of \EE}
+\end{equation}
+    this gives the following
+\begin{align}
+    \du{E} \cddot \du{E} &= \Tr(\du{U}^\dagger \cdot \du{D} \cdot \du{U} \cdot \du{U}^\dagger \cdot \du{D} \cdot \du{U}) = \Tr(\du{D} \cdot\du{D}) = \lambda_1^2 + \lambda_2^2 + (\lambda_1 + \lambda_2)^2 \\
+    &= 2(\lambda_1^2 +\lambda_1\lambda_2 + \lambda_2^2) \qq{For 3D, accounting for tracelessness} \\
+\end{align}
+and, also using symmetry, so that $\du{E}^* = \du{E}^\dagger = \du{U}^\dagger \cdot \du{D}^\dagger \cdot \du{U} = \du{U}^\dagger \cdot \du{D}^* \cdot \du{U}$ (sorry for the dots everywhere but I wanted to be consistent in notation)
+\begin{align}
+    \du{E} \cdot \du{E}^* &=  \du{U}^\dagger \cdot \du{D} \cdot \du{U} \cdot \du{U}^\dagger \cdot \du{D}^* \cdot \du{U} = \du{U}^\dagger \cdot \du{D} \cdot \du{D}^* \cdot \du{U} = \du{U}^\dagger \begin{pmatrix} |\lambda_1|^2 & 0 & 0 \\ 0 & |\lambda_2|^2 & 0 \\ 0 & 0 & |\lambda_1 + \lambda_2|^2 \\ \end{pmatrix} \du{U} \qq{and} \\
+    \du{E} \cddot \du{E}^* &=  \Tr(\du{D} \cdot \du{D}^*) = |\lambda_1|^2 + |\lambda_2|^2 + |\lambda_1 + \lambda_2|^2 \\
+    &= 2|\lambda_1|^2 + 2|\lambda_2|^2 + \lambda_1\lambda_2^* + \lambda_2\lambda_1^*
+\end{align}
+
+\subsection{Some work on \cref{eq:piex2}}
+Next replace the $\lambda$s by $\beta$s using \cref{eq:betalambda}, in order to be more directly usable with the form of \cref{eq:biaxialraw}
+\begin{align}
+    &\du{E} \cddot \du{E} = \cdots = \frac{2}{3}(\beta_1^2 + \beta_1\beta_2 + \beta_2^2) \\
+    &\qq{and use} \\
+    &\beta = \sqrt{\frac{d \du{E} \cddot \du{E}}{d-1}} = \sqrt{\beta_1^2 + \beta_1\beta_2 + \beta_2^2}
+\end{align}
+
+\subsubsection{Expansion in small $\beta_2$}
+Note that $\beta_2 = \lamba_2 - \lambda_3$ and call it $\epsilon$ here and do an expansion in near 0 (which corresponds to a perfectly uniaxial \EE).
+
+\begin{equation}
+    \beta = \sqrt{\beta_1^2+\beta_1\epsilon+\epsilon^2}
+\end{equation}
+so that according to \cref{eq:piex2}
+\begin{equation}
+    \du{\Pi} = \frac{\beta_1}{\beta}(\su{U_1}\su{U_1} - \frac{\du{\delta}}{d}) + \frac{\beta_2}{\beta}(\su{U_2}\su{U_2} - \frac{\du{\delta}}{d}) + \frac{\du{\delta}}{d}
+\end{equation}
+and then I used Mathematica to expand in terms of $\epsilon$ and using $\sqrt{\beta_1^2}=\beta_1$, to get
+\begin{equation}
+    \du{\Pi} = \su{U_1}\su{U_1} - \frac{\epsilon}{2\beta_1}(\su{U_1}\su{U_1} - 2\su{U_2}\su{U_2} + \frac{\du{\delta}}{3}) + \frac{\epsilon^2}{8\beta_1^2}(\su{U_1}\su{U_1} + 4\su{U_2}\su{U_2} - \frac{5\du{\delta}}{3}) + \mathcal{O}(\epsilon^3)
+\end{equation}
+which makes sense but doesn't provide anything new.
+
+\subsubsection{Relating the $\beta$s}
+Instead try to use $\alpha=\frac{\beta_2}{\beta_1}$ (possibly complex, but I'm not being diligent about it) and use $\alpha$ as a dof.
+\begin{equation}
+    \beta = \beta_1 \sqrt{1 + \alpha + \alpha^2}
+\end{equation}
+giving
+\begin{equation}
+    \du{\Pi} = \frac{1}{\sqrt{1 + \alpha + \alpha^2}}\su{U_1}\su{U_1} + \frac{\alpha}{\sqrt{1 + \alpha + \alpha^2}}\su{U_2}\su{U_2} + \frac{\du{\delta}}{d}(1 - \frac{1}{\sqrt{1 + \alpha + \alpha^2}} - \frac{\alpha}{\sqrt{1 + \alpha + \alpha^2}})
+\end{equation}
+Note that $\frac{\alpha}{\sqrt{1 + \alpha + \alpha^2}}$ is clearly related to $\frac{1}{\sqrt{1 + \frac{1}{\alpha} + \frac{1}{\alpha^2}}}$ but not the same, it's the same for positive real $\alpha$.
+
+This gives $\su{U_1}\su{U_1}$ for $\alpha=1$ and presumably $\su{U_2}\su{U_2}$ for $\alpha \rightarrow +\infty$
+
+\subsection{Work on \cref{eq:piex1}}
+Recall
+\begin{align}
+    \du{E} \cdot \du{E}^* &= \du{U}^\dagger \begin{pmatrix} |\lambda_1|^2 & 0 & 0 \\ 0 & |\lambda_2|^2 & 0 \\ 0 & 0 & |\lambda_1 + \lambda_2|^2 \\ \end{pmatrix} \du{U} \qq{and} \\
+    \du{E} \cddot \du{E}^* &=  \Tr(\du{D} \cdot \du{D}^*) = |\lambda_1|^2 + |\lambda_2|^2 + |\lambda_1 + \lambda_2|^2 \\
+    &= 2|\lambda_1|^2 + 2|\lambda_2|^2 + \lambda_1\lambda_2^* + \lambda_2\lambda_1^*
+\end{align}
+\textbf{\Large The next step is wrong, that matrix is not traceless! Needs fixing, but not now}
+
+using the same logic as then getting the biaxial form of \EE\ we can write
+\begin{align}
+    \du{E} \cdot \du{E}^* &= (2|\lambda_1|^2 + |\lambda_2|^2)(\su{U_1}\su{U_1}-\frac{\du{\delta}}{d}) + (|\lambda_1|^2 + 2|\lambda_2|^2)(\su{U_2}\su{U_2}-\frac{\du{\delta}}{d})
+\end{align}
+then I used Mathematica to replace $\lambda$s by $\beta$s for $d=3$ which gave
+\begin{align}
+    \du{E} \cdot \du{E}^* &= \qty(|\beta_1|^2 - \frac{2}{3}\qty(\beta_2\beta_1^* + \qty(\beta_1-\beta_2)\beta_2^*))(\su{U_1}\su{U_1}-\frac{\du{\delta}}{d}) + \qty(|\beta_2|^2 - \frac{2}{3}\qty(\beta_1\beta_2^* + \qty(\beta_2-\beta_1)\beta_1^*))(\su{U_2}\su{U_2}-\frac{\du{\delta}}{d}) \\
+    \du{E} \cddot \du{E}^* &= \frac{1}{3}\qty((2\beta_1-\beta_2)\beta_1^* + (2\beta_2-\beta_1)\beta_2^*)
+\end{align}
+splitting the different tensor contribution in the first result leads to
+\begin{align}
+    \du{E} \cdot \du{E}^* =&\enspace \qty(|\beta_1|^2 - \frac{2}{3}\qty(\beta_2\beta_1^* + \qty(\beta_1-\beta_2)\beta_2^*))\su{U_1}\su{U_1} + \qty(|\beta_2|^2 - \frac{2}{3}\qty(\beta_1\beta_2^* + \qty(\beta_2-\beta_1)\beta_1^*))\su{U_2}\su{U_2} \\
+    &+\qty(|\beta_1|^2 + |\beta_2|^2)
+\end{align}
+which gives overall
+\begin{align}
+    \du{\Pi} = \frac{6 \du{E} \cdot \du{E}^*}{\qty((2\beta_1-\beta_2)\beta_1^* + (2\beta_2-\beta_1)\beta_2^*)} - \frac{\du{\delta}}{3}
+\end{align}
+
+
+\end{document}

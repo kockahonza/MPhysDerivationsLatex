@@ -1,0 +1,35 @@
+\usepackage[utf8]{inputenc}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{stackengine}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage{graphics}
+\usepackage{siunitx}
+
+\allowdisplaybreaks
+
+\newcommand\textbff[1]{\textbf{\boldmath #1}}
+\newcommand\circled[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}
+    }
+\newcommand{\shortnote}[1]{\textit{\footnotesize (#1)}}
+
+\newcommand{\pp}{\partial}
+\newcommand{\mgrad}{\su{\nabla}}
+
+% We often use underlines here
+\newcommand\barbelow[1]{\stackunder[1.2pt]{$#1$}{\rule{1.5ex}{.1ex}}}
+\newcommand{\su}[1]{\barbelow{#1}}
+\newcommand{\du}[1]{\barbelow{\barbelow{#1}}}
+
+\newcommand{\EE}{$\du{E}$}
+\newcommand{\PP}{$\du{\Pi}$}
+\newcommand{\ddelta}[4]{\delta_{#1#3}\delta_{#2#4} + \delta_{#1#4}\delta_{#2#3}}
+
+\newcommand{\YY}[3][j]{E_{#2#1}E_{#3#1}^*}
+
+\def\onedot{$\mathsurround0pt\ldotp$}
+\def\cddot{\mathbin{
+    \vcenter{\baselineskip1ex \vspace{-0.1ex}\hbox{\onedot}\hbox{\onedot}}
+}}

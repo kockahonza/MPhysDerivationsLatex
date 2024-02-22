@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+\usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
+\input{../shared_preamble.tex}
+
+\interdisplaylinepenalty=3000
+
+\begin{document}
+\begin{center}
+    \LARGE
+    \textbf{Derivation of $\fdv{F}{E_{ij}^*}$ in terms of \EE, \PP\ and their derivatives}
+\end{center}
+\vspace{1em}
+\section{Final comments on how it is done here}
+So after a lot of deliberation, I am pretty confident that there are a couple ways to get the functional derivatives, but the general rule is based on simply $\fdv{E_{ij}}{E_{ab}}=\delta_{ia}\delta_{jb}$.
+If one is to symmetrize it, a factor of $\frac{1}{2}$ should be used and the result should be equivalent to simply symmetrizing the possibly asymmetric result, doing $\fdv{F}{E_{ij}} + \fdv{F}{E_{ji}}$.
+When it comes to the second order gradient "symmetry", essentially the same applies, when using the "integral/delta function" method, the problem doesn't come up and equaling the two gives something along the lines of $\pdv{\psi_{,ij}}{\psi_{,ab}}=\delta_{ia}\delta_{jb}$, though if one uses the symmetrized version with a $\frac{1}{2}$ factor, it gives the same result.
+
+Next about the asymmetries that seem to occur in our $F$, they would come up anywhere where there is a term with $E_{ij,\ldots}^*$ without a matching $E_{ij,\ldots}$ in the term.
+Notably, this doesn't happen in any of the terms used by Jack, or the expression for \PP\ that he used, however the other \PP\ expression which has $\du{E}^*$ occuring does have this happen, thus it leads to asymmetries that would need to be fixed.
+
+In this document I will only use the square root version of \PP\ and so we do not need to worry about asymmetry there, this document is meant as a reference for the code implementation without too much commentary, just correct results, split in smaller terms.
+
+\newpage
+\section{Final, cheatsheet}
+\begin{align}
+    \Pi_{kl} =&\enspace \frac{s E_{kl}}{\sqrt{E_{ab}E_{ab}}} + \frac{\delta_{kl}}{d} \\
+    \Pi_{kl,m} =&\enspace \frac{s}{\sqrt{E_{ab}E_{ab}}} \qty(E_{kl,m} - \frac{E_{kl}E_{cd}E_{cd,m}}{E_{ab}E_{ab}}) \\
+    \Pi_{kl,mn} =&\enspace \frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(E_{kl,mn} - \frac{E_{kl,n}E_{cd}E_{cd,m} + E_{kl,m}E_{cd}E_{cd,n} + E_{kl}(E_{cd,n}E_{cd,m} + E_{cd}E_{cd,mn})}{E_{ab}E_{ab}} \\
+    &\phantom{\frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(} + 3\frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2} \Biggr)
+\end{align}
+\begin{align}
+    f_\text{bulk} =&\enspace \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
+    f_\text{comp} =&\enspace b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \\
+    f_\text{curv} =&\enspace b_2^\parallel \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* + b_2^\perp T_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + b_2^{\parallel\perp}(\Pi_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + T_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^*)
+\end{align}
+\begin{align}
+    \fdv{F_\text{bulk}}{E_{ij}^*} =&\enspace \frac{1}{2}\qty(A + C E_{ab}E_{ab}^*)E_{ij} \\
+    \fdv{F_\text{comp}}{E_{ij}^*} =&\enspace -(b_1^\parallel - b_1^\perp) (\Pi_{kl,l} E_{ij,k} + \Pi_{kl} E_{ij,kl}) - b_1^\perp E_{ij,kk} \\
+    \fdv{F_\text{curv}}{E_{ij}^*} =&\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl( (\Pi_{kl}\Pi_{po,po} + 2\Pi_{kl,o}\Pi_{po,p} + \Pi_{kl,po}\Pi_{po})E_{ij,lk} \\
+    &\phantom{\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl(}+ 2(\Pi_{kl,o}\Pi_{po} + \Pi_{kl}\Pi_{po,o})E_{ij,lkp} + \Pi_{kl}\Pi_{po}E_{ij,lkpo} \Bigr) \nonumber \\
+    &+ (b_2^{\parallel\perp} - b_2^\perp)\Bigl( \Pi_{po,po}E_{ij,kk} + \Pi_{kl,oo}E_{ij,lk} \nonumber \\ 
+    &\phantom{\enspace+ (b_2^{\parallel\perp} - b_2^\perp)\Bigl(}+ 2\Pi_{po,o}E_{ij,kkp} + 2\Pi_{kl,o}E_{ij,lko} + 2\Pi_{kl}E_{ij,lkoo} \Bigr) \nonumber \\ 
+    &+ b_2^\perp E_{ij,kkoo} \nonumber
+\end{align}
+
+Brief derivations are below
+
+\newpage
+\section{Gradients of \PP}
+\begin{equation}
+    \du{\Pi} = \sqrt{\frac{d-1}{d \du{E} \cddot \du{E}}} \du{E} + \frac{\du{\delta}}{d} \qq{or} \Pi_{kl} = \frac{s E_{kl}}{\sqrt{E_{ab}E_{ab}}} + \frac{\delta_{kl}}{d} \label{eq:piex}
+\end{equation}
+gives
+\begin{align}
+    \Pi_{kl,m} =&\enspace \frac{s E_{kl,m}}{\sqrt{E_{ab}E_{ab}}} - \frac{s E_{kl}E_{cd}E_{cd,m}}{({E_{ab}E_{ab}})^\frac{3}{2}} = \frac{s}{\sqrt{E_{ab}E_{ab}}} \qty(E_{kl,m} - \frac{E_{kl}E_{cd}E_{cd,m}}{E_{ab}E_{ab}}) \\
+    \Pi_{kl,mn} =&\enspace \frac{s E_{kl,mn}}{\sqrt{E_{ab}E_{ab}}} - \frac{s E_{kl,m}E_{cd}E_{cd,n}}{({E_{ab}E_{ab}})^\frac{3}{2}} - \frac{s (E_{kl,n}E_{cd}E_{cd,m} + E_{kl}E_{cd,n}E_{cd,m} + E_{kl}E_{cd}E_{cd,mn})}{({E_{ab}E_{ab}})^\frac{3}{2}} \\
+    &+ \frac{3 s E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{({E_{ab}E_{ab}})^\frac{5}{2}} 
+    \nonumber \\
+    =&\enspace \frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl( E_{kl,mn} -\frac{E_{kl,m}E_{cd}E_{cd,n} + E_{kl,n}E_{cd}E_{cd,m} + E_{kl} (E_{cd,n}E_{cd,m} + E_{cd}E_{cd,mn})}{E_{ab}E_{ab}} \\
+    &\phantom{\frac{s}{\sqrt{E_{ab}E_{ab}}\Biggl(} \Biggl(}+ 3\frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2} \Biggr) \nonumber \\
+    &\qq{or, to check, also do} \nonumber \\
+    =&\enspace \frac{s}{\sqrt{E_{ab}E_{ab}}}\qty(E_{kl,mn} - \frac{E_{kl,n}E_{cd}E_{cd,m} + E_{kl}E_{cd,n}E_{cd,m} + E_{kl}E_{cd}E_{cd,mn}}{E_{ab}E_{ab}} + 2\frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2}) \\
+    &- \frac{s E_{gh}E_{gh,n}}{(E_{ab}E_{ab})^\frac{3}{2}} \qty(E_{kl,m} - \frac{E_{kl}E_{cd}E_{cd,m}}{E_{ab}E_{ab}}) \nonumber \\
+    =&\enspace \frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(E_{kl,mn} - \frac{E_{kl,n}E_{cd}E_{cd,m} + E_{kl}E_{cd,n}E_{cd,m} + E_{kl}E_{cd}E_{cd,mn}}{E_{ab}E_{ab}} + 2\frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2} \\
+    &\phantom{\frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(}- \frac{E_{kl,m}E_{cd}E_{cd,n}}{E_{ab}E_{ab}} + \frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2} \Biggr) \nonumber \\
+    =&\enspace \frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(E_{kl,mn} - \frac{E_{kl,n}E_{cd}E_{cd,m} + E_{kl,m}E_{cd}E_{cd,n} + E_{kl}(E_{cd,n}E_{cd,m} + E_{cd}E_{cd,mn})}{E_{ab}E_{ab}} \\
+    &\phantom{\frac{s}{\sqrt{E_{ab}E_{ab}}} \Biggl(} + 3\frac{E_{kl}E_{cd}E_{cd,m}E_{ef}E_{ef,n}}{(E_{ab}E_{ab})^2} \Biggr) \qq{which is the same as above -- yay} \nonumber
+\end{align}
+
+\newpage
+\section{Free energies and their functional derivatives}\label{sec:freeenergies}
+We start from the following terms, though quickly reorganize them in terms of \PP\ only
+\begin{align}
+    F &= \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} = F_\text{bulk} + F_\text{comp} + F_\text{curv}\\
+    f_\text{bulk} &= \frac{A}{2} E_{ij}E_{ij}^* + \frac{C}{4} (E_{ij}E_{ij}^*)^2 \\
+    f_\text{comp} &= b_1^\parallel \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp T_{kl} E_{ij,k}E_{ij,l}^* \qq{maybe try adding} b_1^d E_{ij,j}E_{ik,k}^* \qq{later too} \label{eq:fcompdef} \\
+    f_\text{curv} &= b_2^\parallel \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* + b_2^\perp T_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + b_2^{\parallel\perp}(\Pi_{kl}E_{ij,lk}T_{mn}E_{ij,nm}^* + T_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^*)
+\end{align}
+leading to
+\begin{equation}
+    f_\text{comp} = (b_1^\parallel - b_1^\perp) \Pi_{kl} E_{ij,k}E_{ij,l}^* + b_1^\perp E_{ij,k}E_{ij,k}^*
+\end{equation}
+and
+\begin{align}
+    f_\text{curv} =&\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Pi_{kl}E_{ij,lk}\Pi_{mn}E_{ij,nm}^* \\
+    &+ (b_2^{\parallel\perp} - b_2^\perp)(\Pi_{mn}E_{ij,kk}E_{ij,nm}^* + \Pi_{kl}E_{ij,lk}E_{ij,mm}^*) \nonumber \\ 
+    &+ b_2^\perp E_{ij,kk}E_{ij,mm}^* \nonumber
+\end{align}
+
+\subsection{$F_\text{bulk}$}
+\begin{equation}
+    \fdv{E_{ij}^*} \qty(\frac{A}{2} E_{ab}E_{ab}^* + \frac{C}{4} (E_{ab}E_{ab}^*)^2) = \qty(\frac{A}{2} + \frac{C}{2}E_{ab}E_{ab}^*)E_{ij}
+\end{equation}
+\shortnote{doesn't need symmetrizing, and using the symmetric functional derivative gives the same}
+
+\subsection{$F_\text{comp}$ terms}
+\begin{equation}
+    \fdv{E_{ij}^*} \Pi_{kl} E_{ab,k}E_{ab,l}^* = -\pp_m \Pi_{km} E_{ij,k} = - \Pi_{kl,l} E_{ij,k} - \Pi_{kl} E_{ij,kl}
+\end{equation}
+\shortnote{note that \PP\ only directly depends on \EE\, meaning any derivatives wrt to $\du{E}^*$ are 0. This was also checked using the "integral/delta function" method, and again needs no symmetrizing and agrees with the previous, more detailed work}
+\begin{equation}
+    \fdv{E_{ij}^*} E_{ab,k}E_{ab,k}^* = -\pp_l E_{ij,l} = - E_{ij,kk}
+\end{equation}
+\shortnote{symmetric and agrees with previous}
+so
+\begin{equation}
+    \fdv{F_\text{comp}}{E_{ij}^*} = - (b_1^\parallel - b_1^\perp) (\Pi_{kl,l} E_{ij,k} + \Pi_{kl} E_{ij,kl}) - b_1^\perp E_{ij,kk}
+\end{equation}
+
+\subsection{$F_\text{curv}$ terms}
+\begin{align}
+    \fdv{E_{ij}^*} \Pi_{kl}E_{ab,lk}\Pi_{mn}E_{ab,nm}^* =&\enspace \pp_o\pp_p \Pi_{kl}E_{ij,lk}\Pi_{po} \\
+    =&\enspace \pp_o (\Pi_{kl,p}E_{ij,lk}\Pi_{po} + \Pi_{kl}E_{ij,lkp}\Pi_{po} + \Pi_{kl}E_{ij,lk}\Pi_{po,p}) \\
+    =&\enspace \Pi_{kl,po}E_{ij,lk}\Pi_{po} + \Pi_{kl,o}E_{ij,lkp}\Pi_{po} + \Pi_{kl,o}E_{ij,lk}\Pi_{po,p} \\
+    &+ \Pi_{kl,p}E_{ij,lko}\Pi_{po} + \Pi_{kl}E_{ij,lkpo}\Pi_{po} + \Pi_{kl}E_{ij,lko}\Pi_{po,p} \nonumber \\
+    &+ \Pi_{kl,p}E_{ij,lk}\Pi_{po,o} + \Pi_{kl}E_{ij,lkp}\Pi_{po,o} + \Pi_{kl}E_{ij,lk}\Pi_{po,po} \nonumber \\
+    =&\enspace (\Pi_{kl}\Pi_{po,po} + \Pi_{kl,o}\Pi_{po,p} + \Pi_{kl,p}\Pi_{po,o} + \Pi_{kl,po}\Pi_{po})E_{ij,lk} \\
+    &+ (\Pi_{kl,o}\Pi_{po} + \Pi_{kl}\Pi_{po,o})E_{ij,lkp} + (\Pi_{kl,p}\Pi_{po} + \Pi_{kl}\Pi_{po,p})E_{ij,lko} \nonumber \\
+    &+ \Pi_{kl}\Pi_{po}E_{ij,lkpo} \qq{next step uses symmetry of \PP} \nonumber \\
+    =&\enspace (\Pi_{kl}\Pi_{po,po} + 2\Pi_{kl,o}\Pi_{po,p} + \Pi_{kl,po}\Pi_{po})E_{ij,lk} \\
+    &+ 2(\Pi_{kl,o}\Pi_{po} + \Pi_{kl}\Pi_{po,o})E_{ij,lkp} \nonumber \\
+    &+ \Pi_{kl}\Pi_{po}E_{ij,lkpo} \nonumber
+\end{align}
+\shortnote{same result as previously, the only thing that makes me worried at all is using the symmetry of \PP, but I think it's ok}
+\begin{align}
+    \fdv{E_{ij}^*} \Pi_{mn}E_{ab,kk}E_{ab,nm}^* =&\enspace \pp_o\pp_p \Pi_{po}E_{ij,kk} \\
+    =&\enspace \Pi_{po,po}E_{ij,kk} + \Pi_{po,p}E_{ij,kko} + \Pi_{po,o}E_{ij,kkp} + \Pi_{po}E_{ij,kkpo} \\
+    =&\enspace \Pi_{po,po}E_{ij,kk} + 2\Pi_{po,o}E_{ij,kkp} + \Pi_{po}E_{ij,kkpo}
+\end{align}
+
+\begin{align}
+    \fdv{E_{ij}^*} \Pi_{kl}E_{ab,lk}E_{ab,mm}^* =&\enspace \pp_o\pp_p \Pi_{kl}E_{ij,lk} \delta_{po} \\
+    =&\enspace \pp_o\pp_o \Pi_{kl}E_{ij,lk} \\
+    =&\enspace \Pi_{kl,oo}E_{ij,lk} + 2\Pi_{kl,o}E_{ij,lko} + \Pi_{kl}E_{ij,lkoo}
+\end{align}
+
+\begin{align}
+    \fdv{E_{ij}^*} E_{ab,kk}E_{ab,mm}^* =&\enspace \pp_o\pp_o E_{ij,kk} = E_{ij,kkoo}
+\end{align}
+
+% \pagebreak[4]
+giving overall
+\begin{align}
+    \fdv{F_\text{curv}}{E_{ij}^*} =&\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl( (\Pi_{kl}\Pi_{po,po} + 2\Pi_{kl,o}\Pi_{po,p} + \Pi_{kl,po}\Pi_{po})E_{ij,lk} \\
+    &\phantom{\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl(}+ 2(\Pi_{kl,o}\Pi_{po} + \Pi_{kl}\Pi_{po,o})E_{ij,lkp} + \Pi_{kl}\Pi_{po}E_{ij,lkpo} \Bigr) \nonumber \\
+    &+ (b_2^{\parallel\perp} - b_2^\perp)\Bigl( \Pi_{po,po}E_{ij,kk} + 2\Pi_{po,o}E_{ij,kkp} + \Pi_{po}E_{ij,kkpo} \nonumber \\ 
+    &\phantom{\enspace+ (b_2^{\parallel\perp} - b_2^\perp)\Bigl(}+ \Pi_{kl,oo}E_{ij,lk} + 2\Pi_{kl,o}E_{ij,lko} + \Pi_{kl}E_{ij,lkoo} \Bigr) \nonumber \\ 
+    &+ b_2^\perp E_{ij,kkoo} \nonumber \\
+    &\qq{after one more simplification from symmetry} \nonumber \\
+    =&\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl( (\Pi_{kl}\Pi_{po,po} + 2\Pi_{kl,o}\Pi_{po,p} + \Pi_{kl,po}\Pi_{po})E_{ij,lk} \\
+    &\phantom{\enspace (b_2^\parallel + b_2^\perp - 2b_2^{\parallel\perp}) \Bigl(}+ 2(\Pi_{kl,o}\Pi_{po} + \Pi_{kl}\Pi_{po,o})E_{ij,lkp} + \Pi_{kl}\Pi_{po}E_{ij,lkpo} \Bigr) \nonumber \\
+    &+ (b_2^{\parallel\perp} - b_2^\perp)\Bigl( \Pi_{po,po}E_{ij,kk} + \Pi_{kl,oo}E_{ij,lk} \nonumber \\ 
+    &\phantom{\enspace+ (b_2^{\parallel\perp} - b_2^\perp)\Bigl(}+ 2\Pi_{po,o}E_{ij,kkp} + 2\Pi_{kl,o}E_{ij,lko} + 2\Pi_{kl}E_{ij,lkoo} \Bigr) \nonumber \\ 
+    &+ b_2^\perp E_{ij,kkoo} \nonumber
+\end{align}
+
+\end{document}
