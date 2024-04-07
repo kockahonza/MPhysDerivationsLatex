@@ -63,12 +63,13 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Describing smectics}
+    \frametitle{Describing smectics -- de Gennes}
     \begin{itemize}
-        \item The layering is a density fluctuation
+        \item The layering is a wavelike density fluctuation
     \end{itemize}
     \begin{align*}
-        \rho(\su{r}, t) = \sum_{m=-\inf}^{+\inf} \psi_m e^{im\su{q}\cdot\su{r}} \simeq \rho_0 + 2\Re(\psi e^{i\su{q_0}\cdot\su{r}})
+        % \rho(\su{r}, t) = \sum_{m=-\inf}^{+\inf} \psi_m e^{im\su{q}\cdot\su{r}} \simeq \rho_0 + 2\Re(\psi e^{i\su{q_0}\cdot\su{r}}) \\
+        \rho(\su{r}) = \rho_0(1 + |\psi|\cos(\su{q_0}\cdot\su{r} + \phi)) = \rho_0(1 + \Re(|\psi| e^{i(\ssu{q_0} \cdot \ssu{r} + \phi)}))
     \end{align*}
     \begin{itemize}
         \item Having $\psi = |\psi|e^{i\phi}$ gives
@@ -110,7 +111,7 @@
     \end{itemize}
     \begin{align*}
         \du{Q} &= S_1(\su{N}\su{N} - \frac{\du{\delta}}{d}) \qq{\color{gray} uniaxial case \normalcolor} \\
-        \du{E} &\sim \psi_1(\su{N}\su{N} - \frac{\du{\delta}}{d})
+        \du{E} &\sim \psi(\su{N}\su{N} - \frac{\du{\delta}}{d})
     \end{align*}
 
     \vspace{1ex}
@@ -120,7 +121,7 @@
 \begin{frame}
     \frametitle{E theory numerics}
     \begin{align*}
-        \du{E} &\sim \psi_1(\su{N}\su{N} - \frac{\du{\delta}}{d})
+        \du{E} &\sim \psi(\su{N}\su{N} - \frac{\du{\delta}}{d})
     \end{align*}
     \begin{itemize}
         \item Want to evolve \EE\ directly as a $d\text{x}d$ complex tensor
@@ -188,7 +189,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The free energy -- simplest form}
+    \frametitle{The free energy -- one constant approximation}
     \begin{align*}
         F &= \int f_\text{bulk} + f_\text{comp} + f_\text{curv} \dd{V} \\
         f_\text{bulk} &= A E_{ij}E_{ij}^* + \frac{C}{2} (E_{ij}E_{ij}^*)^2 \\

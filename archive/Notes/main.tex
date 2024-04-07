@@ -1,0 +1,20 @@
+\documentclass[11pt]{article}
+\usepackage[top=40mm,bottom=40mm,left=20mm,right=20mm]{geometry}
+
+\input{../../shared_preamble.tex}
+
+\begin{document}
+\subsubsection*{5th Dec}
+Dealing with the code, fixed the initialization (which fixed the tracelessness again).
+
+Doing runs where every step is printed -- the energies look nice without any oscillations and the constraints are performing surprisingly well!
+
+Still trying to figure out if the uniaxial stuff is working alright, currently I'm seeing that the reconstructed n is not of unit norm, it can be ${\sim}1.2$ or so -- this is from a fully randomized starting point, but phi=0.
+This means the reconstructed pi has trace not 1! this may be important -- possible correction, do $\du{\Pi}' = \frac{\du{\Pi}}{\Tr(\du{\Pi})}$ -- this should be equivalent to normalizing the underlying $\su{n}$ but not affecting the \PP\ in any other way (thus might be a stable and sensible way to correct even invalid \PP).
+
+\subsubsection*{6th Dec}
+Continuing the same as yesterday but also want to get non-dimensialization theory and code done today!
+
+Another thing I didn't mention so far but is worth noting, if phi is non-zero the simulation almost immediately goes to all nans -- problem and it must be something numerical, but I think I will only look into this once it has the updated logic -- both non-dimensialization and projection operators, or at least one of them.
+This happens even with a fixed initial phi of 0.000001, the nans happen within 2 steps.
+\end{document}
